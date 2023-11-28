@@ -1,0 +1,15 @@
+### Send POST для регистрации
+POST http://localhost:8000/api/auth/register/
+Content-Type: application/json
+Authorization: Bearer {{$auth.token()}}
+
+{
+  "username": "user1",
+  "password1": "complexpassword123",
+  "password2": "complexpassword123"
+}
+
+### Send POST для авторизации
+POST http://localhost:8000/api/auth/user/
+Content-Type: application/json
+Authorization: Bearer {{$auth.token()}}
