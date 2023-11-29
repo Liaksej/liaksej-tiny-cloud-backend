@@ -62,6 +62,7 @@ INSTALLED_APPS = [
     "dj_rest_auth",
     "dj_rest_auth.registration",
     "corsheaders",
+    "allauth.socialaccount.providers.google",
 ]
 
 MIDDLEWARE = [
@@ -136,6 +137,24 @@ SIMPLE_JWT = {
     "UPDATE_LAST_LOGIN": True,
     "SIGNING_KEY": "complexsigningkey",  # generate a key and replace me
     "ALGORITHM": "HS512",
+}
+
+SOCIALACCOUNT_PROVIDERS = {
+    "google": {
+        "APP": {
+            "client_id": f"{os.getenv('GOOGLE_CLIENT_ID')}",
+            "secret": f"{os.getenv('GOOGLE_CLIENT_SECRET')}",
+            "key": "",  # leave empty
+        },
+        "SCOPE": [
+            "profile",
+            "email",
+        ],
+        "AUTH_PARAMS": {
+            "access_type": "online",
+        },
+        "VERIFIED_EMAIL": True,
+    },
 }
 
 REST_AUTH = {
