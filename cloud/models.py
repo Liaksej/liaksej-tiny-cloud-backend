@@ -1,15 +1,45 @@
 import uuid
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 
+
 class User(models.Model):
-    username = models.CharField(max_length=100)
-    full_name = models.JSONField(max_length=200)
-    email = models.EmailField(max_length=100)
-    password = models.CharField(max_length=100)
-    admin = models.BooleanField()
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     pass_to_store = models.TextField()
+
+    @property
+    def last_login(self):
+        return self.user.last_login
+
+    @property
+    def id(self):
+        return self.user.id
+
+    @property
+    def email(self):
+        return self.user.email
+
+    @property
+    def first_name(self):
+        return self.user.first_name
+
+    @property
+    def last_name(self):
+        return self.user.last_name
+
+    @property
+    def is_active(self):
+        return self.user.is_active
+
+    @property
+    def is_superuser(self):
+        return self.user.is_superuser
+
+    @property
+    def username(self):
+        return self.user.username
 
 
 class File(models.Model):
@@ -24,4 +54,3 @@ class File(models.Model):
     file_type = models.CharField(max_length=50)
     public_url = models.URLField(null=True, blank=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-

@@ -1,15 +1,54 @@
 ### Send POST для регистрации
 POST http://localhost:8000/api/auth/register/
 Content-Type: application/json
-Authorization: Bearer {{$auth.token()}}
 
 {
-  "username": "user1",
+  "email": "tarusov@tut.by",
+  "username": "liaksej",
   "password1": "complexpassword123",
   "password2": "complexpassword123"
 }
 
-### Send POST для авторизации
-POST http://localhost:8000/api/auth/user/
+### Send GET для авторизации
+GET http://localhost:8000/api/auth/user/
+Authorization: Bearer {{access_token}}
 Content-Type: application/json
-Authorization: Bearer {{$auth.token()}}
+
+
+### Send POST для логина
+POST http://localhost:8000/api/auth/login/
+Content-Type: application/json
+
+{
+  "email": "tarusov@tut.by",
+  "password": "complexpassword123"
+}
+
+### Send GET user details via the obtained access token
+GET http://localhost:8000/api/auth/user/
+Authorization: Bearer {{access_token}}
+Content-Type: application/json
+
+### Send POST to verify that the token is still valid
+POST http://localhost:8000/api/auth/token/verify/
+Content-Type: application/json
+
+{
+  "token": "{{access_token}}"
+}
+
+### Send POST to refresh access_token
+POST http://localhost:8000/api/auth/token/refresh/
+Content-Type: application/json
+
+{
+  "refresh": "{{refresh_token}}"
+}
+
+### Send POST for google auth
+POST http://localhost:8000/api/auth/google/
+Content-Type: application/json
+
+{
+  "access_token": "{{id_token}}"
+}
