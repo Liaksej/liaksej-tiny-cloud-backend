@@ -53,4 +53,8 @@ class File(models.Model):
     size = models.IntegerField()
     file_type = models.CharField(max_length=50)
     public_url = models.URLField(null=True, blank=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name="files",
+    )
