@@ -1,9 +1,21 @@
+from allauth.account.models import EmailAddress
+from allauth.socialaccount.models import SocialAccount, SocialToken, SocialApp
 from django.contrib import admin
+from django.contrib.auth.admin import UserAdmin as DefaultUserAdmin
+from django.contrib.auth.models import User as AuthUser, Group
+from django.contrib.sites.models import Site
 
-from cloud.models import File, User
-
+from .models import File, User as CloudUser
 
 # Register your models here.
+admin.site.unregister(Site)
+admin.site.unregister(Group)
+admin.site.unregister(SocialAccount)
+admin.site.unregister(SocialToken)
+admin.site.unregister(SocialApp)
+admin.site.unregister(EmailAddress)
+
+
 @admin.register(File)
 class FileAdmin(admin.ModelAdmin):
     list_display = (
@@ -21,33 +33,34 @@ class FileAdmin(admin.ModelAdmin):
     )
 
 
-@admin.register(User)
-class UserAdmin(admin.ModelAdmin):
+@admin.register(CloudUser)
+class CloudUserAdmin(admin.ModelAdmin):
+    list_display = ("pass_to_store",)
+
+
+class CloudUserInline(admin.StackedInline):
+    model = CloudUser
+    can_delete = False
+    verbose_name_plural = "users"
+
+
+class UserAdmin(DefaultUserAdmin):
+    inlines = (CloudUserInline,)
     list_display = (
-        "id",
-        "last_login",
+        "username",
         "email",
         "first_name",
         "last_name",
-        "is_active",
         "is_superuser",
-        "username",
-        "pass_to_store",
+        "get_pass_to_store",
     )
 
-    def get_queryset(self, request):
-        return super().get_queryset(request).prefetch_related("user")
+    def get_pass_to_store(self, obj):
+        return obj.clouduser.pass_to_store
 
-    def is_active(self, obj):
-        return obj.user.is_active
+    get_pass_to_store.short_description = "Pass To Store"
 
-    is_active.admin_order_field = "user__is_active"
-    is_active.boolean = True
-    is_active.short_description = "Active?"
 
-    def is_superuser(self, obj):
-        return obj.user.is_superuser
-
-    is_superuser.admin_order_field = "user__is_superuser"
-    is_superuser.boolean = True
-    is_superuser.short_description = "Superuser?"
+admin.site.unregister(AuthUser)
+admin.site.unregister(CloudUser)
+admin.site.register(AuthUser, UserAdmin)

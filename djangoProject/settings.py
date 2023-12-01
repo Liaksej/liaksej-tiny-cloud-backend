@@ -29,6 +29,14 @@ SECRET_KEY = "django-insecure-r-(39c4jj4y_^$e#wy^eaj4@rs8o*k%+xf3d0xntn81sn!3-vz
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+INTERNAL_IPS = [
+    # ...
+    "127.0.0.1",
+    # ...
+]
+
+# Application definition
+
 CORS_ALLOW_CREDENTIALS = True
 if DEBUG:
     CORS_ALLOW_ALL_ORIGINS = True
@@ -40,7 +48,6 @@ else:
 
 ALLOWED_HOSTS = []
 
-# Application definition
 
 SITE_ID = 1
 
@@ -64,10 +71,12 @@ INSTALLED_APPS = [
     "dj_rest_auth.registration",
     "corsheaders",
     "allauth.socialaccount.providers.google",
+    "debug_toolbar",
 ]
 
 
 MIDDLEWARE = [
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "corsheaders.middleware.CorsMiddleware",

@@ -1,12 +1,14 @@
 import uuid
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User as AuthUser
 
 # Create your models here.
 
 
 class User(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
+    user = models.OneToOneField(
+        AuthUser, on_delete=models.CASCADE, primary_key=True, related_name="clouduser"
+    )
     pass_to_store = models.TextField()
 
     @property
