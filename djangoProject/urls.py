@@ -23,4 +23,5 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("__debug__/", include("debug_toolbar.urls")),
     path("api/cloud/", include("cloud.urls")),
+    path("api-auth/", include("rest_framework.urls")),
 ]

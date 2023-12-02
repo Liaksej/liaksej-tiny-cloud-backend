@@ -1,11 +1,10 @@
 from rest_framework import serializers
 
 from cloud.models import File
-from django.contrib.auth.models import User
 
 
 class FilesListSerializer(serializers.ModelSerializer):
-    # user = serializers.CharField(source="user.user.username", read_only=True)
+    user = serializers.ReadOnlyField(source="user.user.username", read_only=True)
 
     class Meta:
         model = File
@@ -35,6 +34,7 @@ class FilesListSerializer(serializers.ModelSerializer):
                 "size",
                 "date_created",
                 "date_downloaded",
+                "user",  # TODO: remove this field
             ]
             drop_fields = set(self.fields.keys()) - set(keep_fields)
 
