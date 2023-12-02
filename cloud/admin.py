@@ -56,7 +56,7 @@ class UserAdmin(DefaultUserAdmin):
     )
 
     def get_pass_to_store(self, obj):
-        return obj.clouduser.pass_to_store
+        return obj.clouduser.path_to_store
 
     get_pass_to_store.short_description = "Pass To Store"
 
