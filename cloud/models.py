@@ -9,7 +9,7 @@ class User(models.Model):
     user = models.OneToOneField(
         AuthUser, on_delete=models.CASCADE, primary_key=True, related_name="clouduser"
     )
-    pass_to_store = models.TextField()
+    path_to_store = models.URLField(null=False, blank=False)
 
     @property
     def last_login(self):
