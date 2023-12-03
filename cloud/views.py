@@ -1,26 +1,21 @@
-from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
+from rest_framework.viewsets import ModelViewSet
 
-from cloud.permissions import IsOwnerOrAdmin
-
-# Create your views here.
-from cloud.serializers import FilesListSerializer
 from cloud.models import File
+from cloud.permissions import IsOwnerOrAdmin
+from cloud.serializers import FilesListSerializer
 
 
-class FileListView(ListCreateAPIView):
+class FileViewSet(ModelViewSet):
     queryset = File.objects.all()
     serializer_class = FilesListSerializer
-    permission_classes = [IsAuthenticated]
 
-    def get_queryset(self):
-        return File.objects.filter(user__user__username=self.request.user)
+    def get_permissions(self):
+        if self.action == "list" and self.request.user.is_superuser:
+            return [IsAuthenticated(), IsOwnerOrAdmin()]
+        return [IsAuthenticated(), IsAdminUser()]
 
-    def perform_create(self, serializer):
-        serializer.save(user__user__username=self.request.user)
-
-
-class FileDetailView(RetrieveUpdateDestroyAPIView):
-    queryset = File.objects.all()
-    serializer_class = FilesListSerializer
-    permission_classes = [IsOwnerOrAdmin]
+    def list(self, request, *args, **kwargs):
+        if not request.user.is_superuser:
+            self.queryset = self.queryset.filter(user__user=request.user)
+        return super().list(request, *args, **kwargs)
