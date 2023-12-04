@@ -1,4 +1,4 @@
-import os.path
+import os
 import uuid
 
 from djangoProject import settings
@@ -14,5 +14,12 @@ def save_file(file):
 
     return {
         "file_name": file_name,
-        "file_path": os.path.join(settings.STATIC_URL, file_name),
+        "file_path": save_path,
     }
+
+
+def delete_file(file_path):
+    try:
+        os.remove(file_path)
+    except FileNotFoundError:
+        pass

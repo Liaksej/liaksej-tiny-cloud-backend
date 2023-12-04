@@ -45,6 +45,7 @@ else:
     CORS_ALLOWED_ORIGINS = [
         "http://localhost:3000/",
         "http://127.0.0.1:3000/",
+        "http://localhost:3000",
     ]
 
 ALLOWED_HOSTS = []
@@ -220,7 +221,7 @@ REST_FRAMEWORK = {
     ],
     "SEARCH_PARAM": "q",
     "ORDERING_PARAM": "order",
-    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.LimitOffsetPagination",
+    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
     "PAGE_SIZE": 10,
     "DEFAULT_THROTTLE_CLASSES": [
         "rest_framework.throttling.AnonRateThrottle",

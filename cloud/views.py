@@ -5,13 +5,14 @@ from rest_framework.viewsets import ModelViewSet
 from cloud.models import File
 from cloud.permissions import IsOwnerOrAdmin
 from cloud.serializers import FilesListSerializer
-from cloud.services import save_file
+from cloud.services import save_file, delete_file
 
 
 class FileViewSet(ModelViewSet):
     queryset = File.objects.all()
     serializer_class = FilesListSerializer
     parser_classes = [MultiPartParser]
+    ordering = ["-date_created"]
 
     def get_permissions(self):
         if self.action == "list" and self.request.user.is_superuser:
@@ -29,12 +30,17 @@ class FileViewSet(ModelViewSet):
 
         comment = self.request.POST.get("comment")
 
-        serializer.save = {
-            "name": file_info["file_name"],
-            "original_name": file.name,
-            "file_path": file_info["file_path"],
-            "file_type": file.content_type,
-            "user": self.request.user.id,
-            "comment": comment,
-            "size": file.size,
-        }
+        serializer.save(
+            name=file_info["file_name"],
+            original_name=file.name,
+            file_path=file_info["file_path"],
+            file_type=file.content_type,
+            user_id=self.request.user.id,
+            comment=comment,
+            size=file.size,
+        )
+
+    def perform_destroy(self, instance):
+        delete_file(instance.file_path)
+
+        instance.delete()

@@ -42,10 +42,7 @@ class FilesListSerializer(serializers.ModelSerializer):
                 self.fields.pop(field_name)
 
         if request and request.method == "POST":
-            keep_fields = [
-                "comment",
-                "user",  # TODO: remove this field
-            ]
+            keep_fields = ["comment"]
             drop_fields = set(self.fields.keys()) - set(keep_fields)
 
             for field_name in drop_fields:
