@@ -38,6 +38,8 @@ class UsersViewSet(
     DestroyModelMixin,
     GenericViewSet,
 ):
+    lookup_field = "username"
+
     queryset = User.objects.all()
     serializer_class = UserListSerializer
     ordering = ["username"]

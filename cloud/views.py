@@ -3,7 +3,7 @@ from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.viewsets import ModelViewSet
 
 from cloud.models import File
-from cloud.permissions import IsOwnerOrAdmin
+from cloud.permissions import IsOwner
 from cloud.serializers import FilesListSerializer
 from cloud.services import save_file, delete_file
 
@@ -15,9 +15,9 @@ class FileViewSet(ModelViewSet):
     ordering = ["-date_created"]
 
     def get_permissions(self):
-        if self.action == "list" and self.request.user.is_superuser:
-            return [IsAuthenticated(), IsOwnerOrAdmin()]
-        return [IsAuthenticated(), IsAdminUser()]
+        if self.action not in ["create", "update"] and self.request.user.is_superuser:
+            return [IsAuthenticated(), IsAdminUser()]
+        return [IsAuthenticated(), IsOwner()]
 
     def list(self, request, *args, **kwargs):
         if not request.user.is_superuser:
