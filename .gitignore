@@ -9,6 +9,7 @@
 .idea/**/dictionaries
 .idea/**/shelf
 .idea
+
 requests.http
 
 # AWS User-specific

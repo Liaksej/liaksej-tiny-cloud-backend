@@ -29,10 +29,11 @@ class FileViewSet(ModelViewSet):
         file_info = save_file(file)
 
         comment = self.request.POST.get("comment")
+        file_name = self.request.POST.get("file_name")
 
         serializer.save(
             name=file_info["file_name"],
-            original_name=file.name,
+            original_name=file_name,
             file_path=file_info["file_path"],
             file_type=file.content_type,
             user_id=self.request.user.id,

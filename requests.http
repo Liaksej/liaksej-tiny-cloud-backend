@@ -16,12 +16,13 @@ Content-Type: application/json
 
 
 ### Send POST для логина
+# @no-cookie-jar
 POST http://localhost:8000/api/auth/login/
 Content-Type: application/json
 
 {
-  "email": "tarusov@tut.by",
-  "password": "complexpassword123"
+  "email": "admin@example.com",
+  "password": "45641231"
 }
 
 ### Send GET user details via the obtained access token
@@ -52,3 +53,11 @@ Content-Type: application/json
 {
   "access_token": "{{id_token}}"
 }
+
+### Send POST for logout
+POST http://localhost:8000/api/auth/logout/
+Authorization: Bearer {{access_token}}
+Content-Type: application/json
+
+
+
