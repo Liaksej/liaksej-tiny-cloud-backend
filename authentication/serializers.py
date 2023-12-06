@@ -19,7 +19,7 @@ class UserListSerializer(serializers.ModelSerializer):
             "first_name",
             "last_name",
             "email",
-            "is_superuser",
+            "is_staff",
             "date_joined",
             "last_login",
             "count_files",
@@ -33,7 +33,7 @@ class UserListSerializer(serializers.ModelSerializer):
 
         if request and (request.method == "PUT" or request.method == "PATCH"):
             for field_name in self.fields:
-                if field_name == "is_superuser":
+                if field_name in ["is_superuser", "is_staff"]:
                     continue
                 self.fields[field_name].read_only = True
 
