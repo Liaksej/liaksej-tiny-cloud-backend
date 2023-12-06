@@ -20,6 +20,7 @@ from rest_framework.viewsets import ModelViewSet, GenericViewSet
 from authentication.serializers import UserListSerializer, CustomRegisterSerializer
 from cloud.models import File
 from cloud.services import delete_file
+from rest_framework.exceptions import PermissionDenied
 
 
 # Create your views here.
@@ -53,7 +54,7 @@ class UsersViewSet(
 
     def perform_destroy(self, instance):
         if self.request.user is instance or self.request.user.is_superuser:
-            return
+            raise PermissionDenied("You cannot delete yourself or a superuser.")
 
         for file in File.objects.filter(user_id=instance.id):
             delete_file(file.file_path)
@@ -62,7 +63,7 @@ class UsersViewSet(
 
     def perform_update(self, serializer):
         if self.request.user.is_superuser:
-            return
+            raise PermissionDenied("You cannot change the superuser.")
 
 
 class CustomRegisterView(RegisterView):
