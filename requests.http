@@ -1,4 +1,5 @@
 ### Send POST для регистрации
+# @no-cookie-jar
 POST http://localhost:8000/api/auth/register/
 Content-Type: application/json
 
@@ -6,7 +7,9 @@ Content-Type: application/json
   "email": "tarusov@tut.by",
   "username": "liaksej",
   "password1": "complexpassword123",
-  "password2": "complexpassword123"
+  "password2": "complexpassword123",
+  "first_name": "Alexey",
+  "last_name": "Tarusov"
 }
 
 ### Send GET для авторизации

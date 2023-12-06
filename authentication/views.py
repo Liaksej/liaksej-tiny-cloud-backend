@@ -14,6 +14,8 @@ from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.viewsets import ModelViewSet, GenericViewSet
 
 from authentication.serializers import UserListSerializer
+from cloud.models import File
+from cloud.services import delete_file
 
 
 # Create your views here.
@@ -44,3 +46,9 @@ class UsersViewSet(
     serializer_class = UserListSerializer
     ordering = ["username"]
     permission_classes = [IsAuthenticated, IsAdminUser]
+
+    def perform_destroy(self, instance):
+        for file in File.objects.filter(user_id=instance.id):
+            delete_file(file.file_path)
+
+        instance.delete()
