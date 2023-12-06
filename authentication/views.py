@@ -51,7 +51,11 @@ class UsersViewSet(
     ordering = ["username"]
     permission_classes = [IsAuthenticated, IsAdminUser]
 
+    # Мне нужно запретить пользователю удалять самого себя и выдавать ошибку при попытке удалить другого пользователя
     def perform_destroy(self, instance):
+        if self.request.user is instance:
+            return
+
         for file in File.objects.filter(user_id=instance.id):
             delete_file(file.file_path)
 

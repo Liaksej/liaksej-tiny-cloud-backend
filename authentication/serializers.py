@@ -4,6 +4,7 @@ from rest_framework import serializers
 from dj_rest_auth.registration.serializers import RegisterSerializer
 
 from cloud.models import File
+from cloud.models import User as CloudUser
 
 
 class UserListSerializer(serializers.ModelSerializer):
@@ -36,10 +37,12 @@ class UserListSerializer(serializers.ModelSerializer):
                     continue
                 self.fields[field_name].read_only = True
 
-    def get_count_files(self, instance):
+    @staticmethod
+    def get_count_files(instance):
         return File.objects.filter(user_id=instance.id).count()
 
-    def get_total_space(self, instance):
+    @staticmethod
+    def get_total_space(instance):
         return File.objects.filter(user_id=instance.id).aggregate(Sum("size"))
 
 
@@ -52,7 +55,6 @@ class CustomRegisterSerializer(RegisterSerializer):
             raise serializers.ValidationError("First name must be a string")
         if not isinstance(data["last_name"], str):
             raise serializers.ValidationError("Last name must be a string")
-
         return data
 
     def get_cleaned_data(self):
@@ -60,3 +62,11 @@ class CustomRegisterSerializer(RegisterSerializer):
         data_dict["first_name"] = self.validated_data.get("first_name", "")
         data_dict["last_name"] = self.validated_data.get("last_name", "")
         return data_dict
+
+    def save(self, request):
+        user = super().save(request)
+        CloudUser.objects.create(
+            user=user,
+            path_to_store=f"https://{user.username}.local",
+        )
+        return user

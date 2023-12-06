@@ -1,5 +1,5 @@
 from rest_framework.parsers import MultiPartParser
-from rest_framework.permissions import IsAuthenticated, IsAdminUser
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.viewsets import ModelViewSet
 
 from cloud.models import File
@@ -15,13 +15,12 @@ class FileViewSet(ModelViewSet):
     ordering = ["-date_created"]
 
     def get_permissions(self):
-        if self.action not in ["create", "update"] and self.request.user.is_superuser:
-            return [IsAuthenticated(), IsAdminUser()]
+        # Access only to the authenticated users
         return [IsAuthenticated(), IsOwner()]
 
     def list(self, request, *args, **kwargs):
-        if not request.user.is_superuser:
-            self.queryset = self.queryset.filter(user__user=request.user)
+        # Show files owned by the authenticated user only, even if they don't have any files
+        self.queryset = self.queryset.filter(user_id=request.user.id)
         return super().list(request, *args, **kwargs)
 
     def perform_create(self, serializer):
