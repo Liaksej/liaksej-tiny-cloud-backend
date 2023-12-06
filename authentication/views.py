@@ -1,7 +1,11 @@
 from allauth.socialaccount.providers.google.views import GoogleOAuth2Adapter
 from allauth.socialaccount.providers.oauth2.views import OAuth2Client
 from dj_rest_auth.app_settings import api_settings
-from dj_rest_auth.registration.views import SocialLoginView, LoginView as BaseLoginView
+from dj_rest_auth.registration.views import (
+    SocialLoginView,
+    RegisterView,
+    LoginView as BaseLoginView,
+)
 from django.contrib.auth import login as django_login
 from django.contrib.auth.models import User
 from rest_framework.mixins import (
@@ -13,7 +17,7 @@ from rest_framework.mixins import (
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.viewsets import ModelViewSet, GenericViewSet
 
-from authentication.serializers import UserListSerializer
+from authentication.serializers import UserListSerializer, CustomRegisterSerializer
 from cloud.models import File
 from cloud.services import delete_file
 
@@ -52,3 +56,7 @@ class UsersViewSet(
             delete_file(file.file_path)
 
         instance.delete()
+
+
+class CustomRegisterView(RegisterView):
+    serializer_class = CustomRegisterSerializer

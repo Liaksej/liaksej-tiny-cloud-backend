@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from django.db.models import Sum
 from rest_framework import serializers
+from dj_rest_auth.registration.serializers import RegisterSerializer
 
 from cloud.models import File
 
@@ -40,3 +41,22 @@ class UserListSerializer(serializers.ModelSerializer):
 
     def get_total_space(self, instance):
         return File.objects.filter(user_id=instance.id).aggregate(Sum("size"))
+
+
+class CustomRegisterSerializer(RegisterSerializer):
+    first_name = serializers.CharField(max_length=150)
+    last_name = serializers.CharField(max_length=150)
+
+    def validate(self, data):
+        if not isinstance(data["first_name"], str):
+            raise serializers.ValidationError("First name must be a string")
+        if not isinstance(data["last_name"], str):
+            raise serializers.ValidationError("Last name must be a string")
+
+        return data
+
+    def get_cleaned_data(self):
+        data_dict = super().get_cleaned_data()
+        data_dict["first_name"] = self.validated_data.get("first_name", "")
+        data_dict["last_name"] = self.validated_data.get("last_name", "")
+        return data_dict
