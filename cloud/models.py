@@ -54,7 +54,7 @@ class File(models.Model):
     comment = models.TextField(null=True, blank=True)
     size = models.IntegerField()
     file_type = models.CharField(max_length=50)
-    public_url = models.URLField(null=True, blank=True)
+    public_url = models.UUIDField(null=True, default=None, blank=True)
     user = models.ForeignKey(
         User,
         on_delete=models.CASCADE,

@@ -1,5 +1,5 @@
 import mimetypes
-import urllib
+from urllib import parse as urllib
 
 from django.http import FileResponse
 from rest_framework import status
@@ -22,11 +22,9 @@ class FileViewSet(ModelViewSet):
     ordering = ["-date_created"]
 
     def get_permissions(self):
-        # Access only to the authenticated users
         return [IsAuthenticated(), IsOwner()]
 
     def list(self, request, *args, **kwargs):
-        # Show files owned by the authenticated user only, even if they don't have any files
         self.queryset = self.queryset.filter(user_id=request.user.id)
         return super().list(request, *args, **kwargs)
 
@@ -60,7 +58,7 @@ class FileDownloadMixin:
             file = open(file_obj.file_path, "rb")
             mime_type, _ = mimetypes.guess_type(file_obj.file_type)
             response = FileResponse(file, content_type=mime_type)
-            encoded_filename = urllib.parse.quote(file_obj.original_name.encode("utf-8"))
+            encoded_filename = urllib.quote(file_obj.original_name.encode("utf-8"))
             response["Content-Disposition"] = f'inline; filename*=UTF-8\'\'{encoded_filename}'
             return response
         except FileNotFoundError:
@@ -78,8 +76,7 @@ class DownloadFileView(FileDownloadMixin, RetrieveModelMixin, GenericViewSet):
 
 class PublicFileDownloadView(FileDownloadMixin, RetrieveModelMixin, GenericViewSet):
     queryset = File.objects.all()
-    permission_classes = []
-    lookup_field = 'public_link'
+    lookup_field = 'public_url'
 
     def retrieve(self, request, *args, **kwargs):
         return self.download_file(self.get_object())
