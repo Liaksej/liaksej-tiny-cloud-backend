@@ -3,7 +3,6 @@ import urllib
 
 from django.http import FileResponse
 from rest_framework import status
-from rest_framework.generics import get_object_or_404
 from rest_framework.mixins import RetrieveModelMixin
 from rest_framework.parsers import MultiPartParser, JSONParser
 from rest_framework.permissions import IsAuthenticated
@@ -52,6 +51,7 @@ class FileViewSet(ModelViewSet):
         delete_file(instance.file_path)
 
         instance.delete()
+
 
 class FileDownloadMixin:
     @staticmethod
