@@ -53,7 +53,7 @@ class UsersViewSet(
     permission_classes = [IsAuthenticated, IsAdminUser]
 
     def perform_destroy(self, instance):
-        if self.request.user is instance or self.request.user.is_superuser:
+        if self.request.user is instance or instance.is_superuser:
             raise PermissionDenied("You cannot delete yourself or a superuser.")
 
         for file in File.objects.filter(user_id=instance.id):
