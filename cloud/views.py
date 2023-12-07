@@ -3,11 +3,12 @@ import urllib
 
 from django.http import FileResponse
 from rest_framework import status
+from rest_framework.generics import get_object_or_404
 from rest_framework.mixins import RetrieveModelMixin
 from rest_framework.parsers import MultiPartParser, JSONParser
 from rest_framework.permissions import IsAuthenticated
-from rest_framework.viewsets import ModelViewSet, GenericViewSet
 from rest_framework.response import Response
+from rest_framework.viewsets import ModelViewSet, GenericViewSet
 
 from cloud.models import File
 from cloud.permissions import IsOwner, IsOwnerOrStaff
@@ -52,18 +53,33 @@ class FileViewSet(ModelViewSet):
 
         instance.delete()
 
-
-class DownloadFileView(RetrieveModelMixin, GenericViewSet):
-    queryset = File.objects.all()
-    permission_classes = [IsAuthenticated, IsOwnerOrStaff]
-
-    def retrieve(self, request, *args, **kwargs):
+class FileDownloadMixin:
+    @staticmethod
+    def download_file(file_obj):
         try:
-            file = open(self.get_object().file_path, "rb")
-            mime_type, _ = mimetypes.guess_type(self.get_object().file_type)
+            file = open(file_obj.file_path, "rb")
+            mime_type, _ = mimetypes.guess_type(file_obj.file_type)
             response = FileResponse(file, content_type=mime_type)
-            encoded_filename = urllib.parse.quote(self.get_object().original_name.encode("utf-8"))
+            encoded_filename = urllib.parse.quote(file_obj.original_name.encode("utf-8"))
             response["Content-Disposition"] = f'inline; filename*=UTF-8\'\'{encoded_filename}'
             return response
         except FileNotFoundError:
             return Response(status=status.HTTP_404_NOT_FOUND)
+
+
+class DownloadFileView(FileDownloadMixin, RetrieveModelMixin, GenericViewSet):
+    queryset = File.objects.all()
+    permission_classes = [IsAuthenticated, IsOwnerOrStaff]
+
+    def retrieve(self, request, *args, **kwargs):
+        self.check_object_permissions(request, self.get_object())
+        return self.download_file(self.get_object())
+
+
+class PublicFileDownloadView(FileDownloadMixin, RetrieveModelMixin, GenericViewSet):
+    queryset = File.objects.all()
+    permission_classes = []
+    lookup_field = 'public_link'
+
+    def retrieve(self, request, *args, **kwargs):
+        return self.download_file(self.get_object())
