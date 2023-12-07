@@ -51,7 +51,7 @@ class FilesListSerializer(serializers.ModelSerializer):
         if request and (request.method == "PUT" or request.method == "PATCH"):
             read_only_fields = [
                 "id",
-                "original_name",
+                "name",
                 "size",
                 "date_created",
                 "date_downloaded",

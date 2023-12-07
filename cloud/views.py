@@ -1,4 +1,4 @@
-from rest_framework.parsers import MultiPartParser
+from rest_framework.parsers import MultiPartParser, JSONParser
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.viewsets import ModelViewSet
 
@@ -11,7 +11,7 @@ from cloud.services import save_file, delete_file
 class FileViewSet(ModelViewSet):
     queryset = File.objects.all()
     serializer_class = FilesListSerializer
-    parser_classes = [MultiPartParser]
+    parser_classes = [MultiPartParser, JSONParser]
     ordering = ["-date_created"]
 
     def get_permissions(self):
