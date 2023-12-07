@@ -1,5 +1,6 @@
 import mimetypes
 from urllib import parse as urllib
+from django.utils.timezone import now
 
 from django.http import FileResponse
 from rest_framework import status
@@ -60,6 +61,10 @@ class FileDownloadMixin:
             response = FileResponse(file, content_type=mime_type)
             encoded_filename = urllib.quote(file_obj.original_name.encode("utf-8"))
             response["Content-Disposition"] = f'inline; filename*=UTF-8\'\'{encoded_filename}'
+
+            file_obj.date_downloaded = now()
+            file_obj.save(update_fields=["date_downloaded"])
+
             return response
         except FileNotFoundError:
             return Response(status=status.HTTP_404_NOT_FOUND)
