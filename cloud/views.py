@@ -1,10 +1,16 @@
+import mimetypes
+
+from django.http import FileResponse
+from rest_framework import status
+from rest_framework.mixins import RetrieveModelMixin
 from rest_framework.parsers import MultiPartParser, JSONParser
 from rest_framework.permissions import IsAuthenticated
-from rest_framework.viewsets import ModelViewSet
+from rest_framework.viewsets import ModelViewSet, GenericViewSet
+from rest_framework.response import Response
 
 from cloud.models import File
-from cloud.permissions import IsOwner
-from cloud.serializers import FilesListSerializer
+from cloud.permissions import IsOwner, IsOwnerOrStaff
+from cloud.serializers import FilesListSerializer, FileDownloadSerializer
 from cloud.services import save_file, delete_file
 
 
@@ -44,3 +50,18 @@ class FileViewSet(ModelViewSet):
         delete_file(instance.file_path)
 
         instance.delete()
+
+
+class DownloadFileView(RetrieveModelMixin, GenericViewSet):
+    queryset = File.objects.all()
+    permission_classes = [IsAuthenticated, IsOwnerOrStaff]
+
+    def retrieve(self, request, *args, **kwargs):
+        try:
+            file = open(self.get_object().file_path, "rb")
+            mime_type, _ = mimetypes.guess_type(self.get_object().file_type)
+            response = FileResponse(file, content_type=mime_type)
+            response["Content-Disposition"] = f"inline; filename={self.get_object().original_name}"
+            return response
+        except FileNotFoundError:
+            return Response(status=status.HTTP_404_NOT_FOUND)

@@ -5,6 +5,7 @@ from . import views
 
 router = DefaultRouter()
 router.register(r"files", views.FileViewSet)
+router.register(r"download", views.DownloadFileView)
 
 
 urlpatterns = [] + router.urls
