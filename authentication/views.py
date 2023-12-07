@@ -62,8 +62,10 @@ class UsersViewSet(
         instance.delete()
 
     def perform_update(self, serializer):
-        if self.request.user.is_superuser:
+        if serializer.instance.is_superuser:
             raise PermissionDenied("You cannot change the superuser.")
+        else:
+            super().perform_update(serializer)
 
 
 class CustomRegisterView(RegisterView):
