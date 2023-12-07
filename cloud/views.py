@@ -1,4 +1,5 @@
 import mimetypes
+import urllib
 
 from django.http import FileResponse
 from rest_framework import status
@@ -10,7 +11,7 @@ from rest_framework.response import Response
 
 from cloud.models import File
 from cloud.permissions import IsOwner, IsOwnerOrStaff
-from cloud.serializers import FilesListSerializer, FileDownloadSerializer
+from cloud.serializers import FilesListSerializer
 from cloud.services import save_file, delete_file
 
 
@@ -61,7 +62,8 @@ class DownloadFileView(RetrieveModelMixin, GenericViewSet):
             file = open(self.get_object().file_path, "rb")
             mime_type, _ = mimetypes.guess_type(self.get_object().file_type)
             response = FileResponse(file, content_type=mime_type)
-            response["Content-Disposition"] = f"inline; filename={self.get_object().original_name}"
+            encoded_filename = urllib.parse.quote(self.get_object().original_name.encode("utf-8"))
+            response["Content-Disposition"] = f'inline; filename*=UTF-8\'\'{encoded_filename}'
             return response
         except FileNotFoundError:
             return Response(status=status.HTTP_404_NOT_FOUND)
