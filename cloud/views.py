@@ -1,12 +1,12 @@
 import mimetypes
 from urllib import parse as urllib
-from django.utils.timezone import now
 
 from django.http import FileResponse
+from django.utils.timezone import now
 from rest_framework import status
 from rest_framework.mixins import RetrieveModelMixin
 from rest_framework.parsers import MultiPartParser, JSONParser
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet, GenericViewSet
 
@@ -23,9 +23,17 @@ class FileViewSet(ModelViewSet):
     ordering = ["-date_created"]
 
     def get_permissions(self):
-        return [IsAuthenticated(), IsOwner()]
+        if self.request.method == "POST":
+            return [IsAuthenticated(), IsOwner()]
+
+        return [IsAuthenticated(), IsOwnerOrStaff()]
 
     def list(self, request, *args, **kwargs):
+        if self.request.query_params and "username" in self.request.query_params.keys():
+            self.queryset = self.queryset.filter(
+                user__user__username=self.request.query_params.get("username")
+            )
+            return super().list(request, *args, **kwargs)
         self.queryset = self.queryset.filter(user_id=request.user.id)
         return super().list(request, *args, **kwargs)
 
@@ -60,7 +68,9 @@ class FileDownloadMixin:
             mime_type, _ = mimetypes.guess_type(file_obj.file_type)
             response = FileResponse(file, content_type=mime_type)
             encoded_filename = urllib.quote(file_obj.original_name.encode("utf-8"))
-            response["Content-Disposition"] = f'inline; filename*=UTF-8\'\'{encoded_filename}'
+            response[
+                "Content-Disposition"
+            ] = f"inline; filename*=UTF-8''{encoded_filename}"
 
             file_obj.date_downloaded = now()
             file_obj.save(update_fields=["date_downloaded"])
@@ -81,7 +91,7 @@ class DownloadFileView(FileDownloadMixin, RetrieveModelMixin, GenericViewSet):
 
 class PublicFileDownloadView(FileDownloadMixin, RetrieveModelMixin, GenericViewSet):
     queryset = File.objects.all()
-    lookup_field = 'public_url'
+    lookup_field = "public_url"
 
     def retrieve(self, request, *args, **kwargs):
         return self.download_file(self.get_object())

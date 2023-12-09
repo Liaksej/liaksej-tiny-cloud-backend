@@ -4,12 +4,12 @@ POST http://localhost:8000/api/auth/register/
 Content-Type: application/json
 
 {
-  "email": "tarusov@tut.by",
-  "username": "liaksej",
-  "password1": "complexpassword123",
-  "password2": "complexpassword123",
-  "first_name": "Alexey",
-  "last_name": "Tarusov"
+  "username": "alexeilre",
+  "email": "jeskail@vfemail.net",
+  "password1": "Tarusov&4564",
+  "password2": "Tarusov&4564",
+  "first_name": "Alex",
+  "last_name": "T"
 }
 
 ### Send GET для авторизации
@@ -59,6 +59,12 @@ Content-Type: application/json
 
 ### Send POST for logout
 POST http://localhost:8000/api/auth/logout/
+Authorization: Bearer {{access_token}}
+Content-Type: application/json
+
+
+### Send GET для получения файлов другого польователя
+GET http://localhost:8000/api/cloud/files/?username=liaksej
 Authorization: Bearer {{access_token}}
 Content-Type: application/json
 
