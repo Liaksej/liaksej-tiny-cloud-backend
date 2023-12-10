@@ -236,3 +236,77 @@ REST_FRAMEWORK = {
     ],
     "DEFAULT_THROTTLE_RATES": {"anon": "5/minute", "user": "900/minute"},
 }
+
+# Logging
+ADMINS = [
+    (os.getenv("ADMIN_NAME"), os.getenv("ADMIN_EMAIL")),
+]
+
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = os.getenv("EMAIL_HOST")
+EMAIL_PORT = int(os.getenv("EMAIL_PORT"))
+EMAIL_USE_TLS = os.getenv("EMAIL_USE_TLS") == "True"
+EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
+
+DEFAULT_EXCEPTION_REPORTER_FILTER = "django.views.debug.SafeExceptionReporterFilter"
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "filters": {
+        "require_debug_false": {
+            "()": "django.utils.log.RequireDebugFalse",
+        },
+        "require_debug_true": {
+            "()": "django.utils.log.RequireDebugTrue",
+        },
+    },
+    "formatters": {
+        "verbose": {
+            "format": "{levelname} {asctime} {module} {process:d} {thread:d} {message}",
+            "style": "{",
+        },
+        "simple": {
+            "format": "{levelname} {asctime} {message}",
+            "style": "{",
+        },
+    },
+    "handlers": {
+        "debug": {
+            "level": "DEBUG",
+            "filters": ["require_debug_true"],
+            "formatter": "simple",
+            "class": "logging.StreamHandler",
+        },
+        "production_console": {
+            "level": "WARNING",
+            "filters": ["require_debug_false"],
+            "formatter": "verbose",
+            "class": "logging.StreamHandler",
+        },
+        "production_file": {
+            "level": "ERROR",
+            "filters": ["require_debug_false"],
+            "formatter": "verbose",
+            "class": "logging.FileHandler",
+            "filename": os.path.join(BASE_DIR, "production.log"),
+        },
+        "mail_admins": {
+            "level": "ERROR",
+            "class": "django.utils.log.AdminEmailHandler",
+            "include_html": True,
+            "filters": ["require_debug_false"],
+        },
+    },
+    "loggers": {
+        "django": {
+            "handlers": [
+                "mail_admins",
+                "debug",
+                "production_console",
+                "production_file",
+            ],
+        },
+    },
+}
