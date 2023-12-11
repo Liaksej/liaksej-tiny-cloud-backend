@@ -1,0 +1,2 @@
+[run]
+omit=tests/*,poetry.lock,pyproject.toml,requests.http,static/*,templates/*,.env,production.log,manage.py,djangoProject/*,*tests.py

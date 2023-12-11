@@ -235,6 +235,7 @@ REST_FRAMEWORK = {
         "rest_framework.throttling.UserRateThrottle",
     ],
     "DEFAULT_THROTTLE_RATES": {"anon": "5/minute", "user": "900/minute"},
+    "TEST_REQUEST_DEFAULT_FORMAT": "json",
 }
 
 # Logging
