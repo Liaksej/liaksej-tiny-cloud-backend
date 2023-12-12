@@ -4,9 +4,8 @@ import pytest
 from bs4 import BeautifulSoup
 
 
-# @pytest.mark.usefixtures("login_user")
 @pytest.mark.django_db
-class TestUser:
+class TestAuthApi:
     """All test cases for api endpoints of app tests_authentication"""
 
     def test_api_endpoint_login(self, login_user):
