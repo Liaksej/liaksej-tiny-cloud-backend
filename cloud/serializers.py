@@ -6,7 +6,7 @@ from cloud.models import File
 
 
 class FilesListSerializer(serializers.ModelSerializer):
-    user = serializers.ReadOnlyField(source="user.user.username", read_only=True)
+    user = serializers.ReadOnlyField(source="user.username", read_only=True)
     public = serializers.BooleanField(read_only=False, default=False)
 
     class Meta:
@@ -48,7 +48,8 @@ class FilesListSerializer(serializers.ModelSerializer):
                 self.fields.pop(field_name)
 
         if request and request.method == "POST":
-            keep_fields = ["comment"]
+            keep_fields = ["comment", "name"]
+            self.fields["name"].read_only = True
             drop_fields = set(self.fields.keys()) - set(keep_fields)
 
             for field_name in drop_fields:
