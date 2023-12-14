@@ -33,6 +33,7 @@ DEBUG = os.getenv("DEBUG") == "True"
 INTERNAL_IPS = [
     # ...
     "127.0.0.1",
+    "0.0.0.0",
     # ...
 ]
 
@@ -45,12 +46,11 @@ else:
     CORS_ALLOWED_ORIGINS = [
         "http://localhost:3000",
         "http://127.0.0.1:3000",
+        "http://0.0.0.0:3000",
+        "http://host.docker.internal:3000",
     ]
 
-ALLOWED_HOSTS = [
-    "localhost",
-    "127.0.0.1",
-]
+ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS").split(" ")
 
 
 SITE_ID = 1
