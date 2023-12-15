@@ -50,6 +50,8 @@ else:
         "http://host.docker.internal:3000",
     ]
 
+CSRF_TRUSTED_ORIGINS = ["http://localhost:1337"]
+
 ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS").split(" ")
 
 
