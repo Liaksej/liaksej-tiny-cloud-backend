@@ -3,8 +3,14 @@ FROM python:3.12-slim
 
 LABEL authors="liaksej"
 
-# set work directory
-WORKDIR /usr/src/app
+# create the appropriate directories
+ENV HOME=/home/app
+ENV APP_HOME=/home/app/web
+RUN mkdir -p $APP_HOME
+WORKDIR $APP_HOME
+
+# create the app user
+RUN addgroup --system app && adduser --system --group app
 
 # set environment variables
 ENV PYTHONDONTWRITEBYTECODE 1
@@ -12,29 +18,28 @@ ENV PYTHONUNBUFFERED 1
 
 # install curl and pip then install poetry
 RUN apt-get update && \
-    apt-get install --no-install-recommends -y curl && \
-    curl -sSL https://install.python-poetry.org | python -
+    apt-get install --no-install-recommends -y curl netcat-openbsd gcc && \
+    curl -sSL https://install.python-poetry.org | python3 - && \
+    rm -rf /var/lib/apt/lists/*
 
 # Make sure scripts in .local are usable:
-ENV PATH=/root/.local/bin:$PATH
+ENV PATH=$HOME/.local/bin:$PATH
 
 # Copy only requirements to cache them in docker layer
-COPY ./poetry.lock ./pyproject.toml /usr/src/app/
+COPY ./poetry.lock ./pyproject.toml /home/app/web/
 
 # preventive measure to ignore creating a virtualenv within another one
 RUN poetry config virtualenvs.create false
 
 # Project initialization:
-RUN poetry install --no-dev
+RUN poetry add gunicorn
+RUN poetry install --no-root
 
-
-# Uncomment this line If you want to run container as non-root user
-RUN groupadd app && useradd -g app app
-
-COPY . /usr/src/app
+# copy project
+COPY . $APP_HOME
 
 # run entrypoint.sh
-RUN apt-get update && apt-get install -y postgresql-client && rm -rf /var/lib/apt/lists/*
-RUN chmod +x /usr/src/app/entrypoint.sh
-ENTRYPOINT ["/usr/src/app/entrypoint.sh"]
+RUN chmod +x $APP_HOME/entrypoint.sh
+RUN chown -R app:app $APP_HOME
 USER app
+CMD /bin/sh -c "${APP_HOME}/entrypoint.sh"

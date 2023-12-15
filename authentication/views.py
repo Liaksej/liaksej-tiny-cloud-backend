@@ -8,6 +8,7 @@ from dj_rest_auth.registration.views import (
 )
 from django.contrib.auth import login as django_login
 from django.contrib.auth.models import User
+from rest_framework.exceptions import PermissionDenied
 from rest_framework.mixins import (
     ListModelMixin,
     RetrieveModelMixin,
@@ -15,12 +16,11 @@ from rest_framework.mixins import (
     DestroyModelMixin,
 )
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
-from rest_framework.viewsets import ModelViewSet, GenericViewSet
+from rest_framework.viewsets import GenericViewSet
 
 from authentication.serializers import UserListSerializer, CustomRegisterSerializer
 from cloud.models import File
 from cloud.services import delete_file
-from rest_framework.exceptions import PermissionDenied
 
 
 # Create your views here.

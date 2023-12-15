@@ -6,7 +6,7 @@ from django.utils.timezone import now
 from rest_framework import status
 from rest_framework.mixins import RetrieveModelMixin
 from rest_framework.parsers import MultiPartParser, JSONParser
-from rest_framework.permissions import IsAuthenticated, IsAdminUser
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet, GenericViewSet
 

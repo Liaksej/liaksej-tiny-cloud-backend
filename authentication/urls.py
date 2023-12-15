@@ -1,14 +1,11 @@
+from dj_rest_auth.jwt_auth import get_refresh_view
+from dj_rest_auth.views import UserDetailsView
 from django.urls import path
 from rest_framework.routers import DefaultRouter
-
-from . import views
-from dj_rest_auth.jwt_auth import get_refresh_view
-from dj_rest_auth.registration.views import RegisterView
-from dj_rest_auth.views import LogoutView, UserDetailsView
-from django.urls import path
 from rest_framework_simplejwt.views import TokenVerifyView
-from allauth.socialaccount.views import signup
-from authentication.views import GoogleLogin, LoginView, CustomRegisterView
+
+from authentication.views import LoginView, CustomRegisterView
+from . import views
 
 router = DefaultRouter()
 router.register(r"users", views.UsersViewSet)
