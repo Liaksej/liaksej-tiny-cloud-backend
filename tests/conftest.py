@@ -67,7 +67,7 @@ def mock_file_services(mocker, file_content="file content"):
 @pytest.fixture
 def file_path_and_name():
     file_name = f"{uuid.uuid4().hex}.txt"
-    file_path = os.path.join(settings.STATIC_ROOT, file_name)
+    file_path = os.path.join(settings.MEDIA_ROOT, file_name)
     return file_path, file_name
 
 
@@ -106,8 +106,8 @@ def upload_file():
         return response
 
     yield _upload_file
-    if file_name and os.path.exists(os.path.join(settings.STATIC_ROOT, file_name)):
-        os.remove(os.path.join(settings.STATIC_ROOT, file_name))
+    if file_name and os.path.exists(os.path.join(settings.MEDIA_ROOT, file_name)):
+        os.remove(os.path.join(settings.MEDIA_ROOT, file_name))
 
 
 @pytest.fixture

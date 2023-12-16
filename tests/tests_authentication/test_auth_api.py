@@ -50,16 +50,16 @@ class TestAuthApi:
     def test_django_admin_panel_login(self, api_client, login_user):
         """Test api endpoint /api/auth/token/refresh/"""
 
-        resonse_admin = api_client.get(
-            "/admin/",
+        response_admin = api_client.get(
+            "/api/admin/",
             cookies={
                 "sessionid": login_user.cookies["sessionid"],
             },
         )
 
-        assert resonse_admin.status_code == 200
+        assert response_admin.status_code == 200
 
-        soup = BeautifulSoup(resonse_admin.content, "html.parser")
+        soup = BeautifulSoup(response_admin.content, "html.parser")
 
         assert login_user.data["user"]["username"] in soup.find(id="user-tools").text
 
