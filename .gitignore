@@ -10,6 +10,7 @@
 .idea/**/shelf
 .idea/*
 
+
 requests.http
 
 # AWS User-specific
@@ -255,3 +256,4 @@ cython_debug/
 #.idea/
 
 !/.env.db
+main.yaml
