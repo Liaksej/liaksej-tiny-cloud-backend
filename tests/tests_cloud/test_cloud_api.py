@@ -5,6 +5,7 @@ import pytest
 class TestCloudApi:
 
     def test_upload_file(self, api_client, login_user, mock_file_api, upload_file):
+        """Test api endpoint for upload file"""
 
         response = upload_file(api_client, login_user, mock_file_api)
 
@@ -15,6 +16,7 @@ class TestCloudApi:
     )
     def test_delete_file(self, api_client, make_user_registration, mock_file_api, upload_file, file_list,
                          login_superuser, is_superuser):
+        """Test api endpoint for delete file"""
 
         upload_file(api_client, make_user_registration, mock_file_api)
 
@@ -41,6 +43,7 @@ class TestCloudApi:
     def test_list_files(
         self, api_client, login_user, mock_file_api, make_user_registration, upload_file, login_superuser, is_superuser
     ):
+        """Test api endpoint for get a list files"""
 
         upload_file(api_client, make_user_registration, mock_file_api)
 
@@ -65,6 +68,7 @@ class TestCloudApi:
     )
     def test_patch_file(self, is_superuser, api_client, make_user_registration, mock_file_api, upload_file,
                         login_superuser, file_list):
+        """Test api endpoint for update file"""
 
         upload_file(api_client, make_user_registration, mock_file_api)
 
@@ -97,6 +101,7 @@ class TestCloudApi:
 
     def test_download_file(self, upload_file, api_client, make_user_registration, mock_file_api, file_list):
         upload_file(api_client, make_user_registration, mock_file_api)
+        """Test api endpoint for download file"""
 
         files = file_list(api_client, make_user_registration)
 
@@ -115,6 +120,7 @@ class TestCloudApi:
     )
     def test_public_download_file(self, upload_file, api_client, make_user_registration, mock_file_api, file_list,
                                   is_public, expected):
+        """Test api endpoint for download public file"""
         upload_file(api_client, make_user_registration, mock_file_api)
 
         files = file_list(api_client, make_user_registration)

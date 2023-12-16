@@ -40,7 +40,7 @@ class FilesListSerializer(serializers.ModelSerializer):
                 "date_created",
                 "date_downloaded",
                 "public_url",
-                "user",  # TODO: remove this field
+                "user",
             ]
             drop_fields = set(self.fields.keys()) - set(keep_fields)
 

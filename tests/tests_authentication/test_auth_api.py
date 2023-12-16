@@ -4,8 +4,6 @@ from bs4 import BeautifulSoup
 
 @pytest.mark.django_db
 class TestAuthApi:
-    """All test cases for api endpoints of app tests_authentication"""
-
     def test_api_endpoint_login(self, login_user):
         """Test api endpoint /api/auth/login/"""
 
@@ -48,7 +46,7 @@ class TestAuthApi:
         )
 
     def test_django_admin_panel_login(self, api_client, login_user):
-        """Test api endpoint /api/auth/token/refresh/"""
+        """Test api for django admin panel login"""
 
         response_admin = api_client.get(
             "/api/admin/",
@@ -79,6 +77,8 @@ class TestAuthApi:
         status_code,
         error_message,
     ):
+        """Test api endpoint for delete superuser"""
+
         superuser_1 = superusers_factory(make_db_user())
         superuser_2 = superusers_factory(make_db_user(is_second_user_superuser))
 
@@ -121,6 +121,8 @@ class TestAuthApi:
         error_message,
         change_to_superuser,
     ):
+        """Test api endpoint for change superuser"""
+
         superuser_1 = superusers_factory(make_db_user())
         superuser_2 = superusers_factory(make_db_user(is_second_user_superuser))
 

@@ -10,7 +10,6 @@
 .idea/**/shelf
 .idea/*
 
-
 requests.http
 
 # AWS User-specific
@@ -255,5 +254,5 @@ cython_debug/
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 #.idea/
 
-!/.env.db
+.env.db
 main.yaml
