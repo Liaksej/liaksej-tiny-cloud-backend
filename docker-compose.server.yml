@@ -2,10 +2,7 @@ version: "3.9"
 
 services:
     web:
-        build:
-            context: .
-            dockerfile: Dockerfile
-        command: gunicorn djangoProject.wsgi --bind 0.0.0.0:8000
+        image: liaksej/liaksej-tiny-cloud-backend:latest
         volumes:
             - static_volume:/home/app/web/static
             - media_volume:/home/app/web/media
@@ -22,7 +19,7 @@ services:
         env_file:
             - .env.db
     nginx:
-        build: ./nginx
+        image: liaksej/nginx:latest
         volumes:
             - static_volume:/home/app/web/static
             - media_volume:/home/app/web/media
@@ -31,13 +28,11 @@ services:
         depends_on:
             - web
     nextjs:
-        build:
-            context: ../liaksej-tiny-cloud-frontend
-            dockerfile: Dockerfile
+        image: liaksej/liaksej-tiny-cloud-frontend:latest
         expose:
             - 3000
         env_file:
-            - ../liaksej-tiny-cloud-frontend/.env.production
+            - .env.production
         depends_on:
             - web
 
