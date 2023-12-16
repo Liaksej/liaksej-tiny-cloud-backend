@@ -7,7 +7,6 @@ from django.contrib.sites.models import Site
 
 from .models import File, User as CloudUser
 
-# Register your models here.
 admin.site.unregister(Site)
 admin.site.unregister(Group)
 admin.site.unregister(SocialAccount)
@@ -58,7 +57,7 @@ class UserAdmin(DefaultUserAdmin):
     def get_pass_to_store(self, obj):
         return obj.clouduser.path_to_store
 
-    get_pass_to_store.short_description = "Pass To Store"
+    get_pass_to_store.short_description = "Path To Store"
 
 
 admin.site.unregister(AuthUser)

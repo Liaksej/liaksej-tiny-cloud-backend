@@ -23,7 +23,6 @@ from cloud.models import File
 from cloud.services import delete_file
 
 
-# Create your views here.
 class GoogleLogin(SocialLoginView):
     adapter_class = GoogleOAuth2Adapter
     callback_url = "http://127.0.0.1:3000/"

@@ -7,6 +7,8 @@ from cloud.services import (
 
 
 def test_save_file(mocker, file_path_and_name, mock_file_services):
+    """Test api endpoint for save file function"""
+
     file_mock = mock_file_services()
 
     mocker.patch("builtins.open", mocker.mock_open())
@@ -31,6 +33,8 @@ def test_save_file(mocker, file_path_and_name, mock_file_services):
     ],
 )
 def test_delete_file(mocker, file_path, should_raise):
+    """Test api endpoint for delete file function"""
+
     mock_remove = mocker.patch(
         "os.remove", side_effect=FileNotFoundError if should_raise else None
     )
