@@ -50,6 +50,7 @@ class UsersViewSet(
     serializer_class = UserListSerializer
     ordering = ["username"]
     permission_classes = [IsAuthenticated, IsAdminUser]
+    search_fields = ["username"]
 
     def perform_destroy(self, instance):
         if self.request.user is instance or instance.is_superuser:
