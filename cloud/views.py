@@ -21,6 +21,7 @@ class FileViewSet(ModelViewSet):
     serializer_class = FilesListSerializer
     parser_classes = [MultiPartParser, JSONParser]
     ordering = ["-date_created"]
+    search_fields = ["original_name"]
 
     def get_permissions(self):
         if self.request.method == "POST":
