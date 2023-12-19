@@ -52,7 +52,7 @@ class File(models.Model):
     date_downloaded = models.DateTimeField(null=True, blank=True)
     comment = models.TextField(null=True, blank=True)
     size = models.IntegerField()
-    file_type = models.CharField(max_length=50)
+    file_type = models.CharField(max_length=150)
     public_url = models.UUIDField(null=True, default=None, blank=True)
     user = models.ForeignKey(
         User,
