@@ -69,12 +69,9 @@ class FileDownloadMixin:
             mime_type, _ = mimetypes.guess_type(file_obj.file_type)
             response = FileResponse(file, content_type=mime_type)
             encoded_filename = urllib.quote(file_obj.original_name.encode("utf-8"))
-            response[
-                "Content-Disposition"
-            ] = f"inline; filename*=UTF-8''{encoded_filename}"
-
-            file_obj.date_downloaded = now()
-            file_obj.save(update_fields=["date_downloaded"])
+            response["Content-Disposition"] = (
+                f"inline; filename*=UTF-8''{encoded_filename}"
+            )
 
             return response
         except FileNotFoundError:
@@ -86,8 +83,11 @@ class DownloadFileView(FileDownloadMixin, RetrieveModelMixin, GenericViewSet):
     permission_classes = [IsAuthenticated, IsOwnerOrStaff]
 
     def retrieve(self, request, *args, **kwargs):
-        self.check_object_permissions(request, self.get_object())
-        return self.download_file(self.get_object())
+        instance = self.get_object()
+        instance.date_downloaded = now()
+        instance.save(update_fields=["date_downloaded"])
+        self.check_object_permissions(request, instance)
+        return self.download_file(instance)
 
 
 class PublicFileDownloadView(FileDownloadMixin, RetrieveModelMixin, GenericViewSet):
@@ -95,4 +95,7 @@ class PublicFileDownloadView(FileDownloadMixin, RetrieveModelMixin, GenericViewS
     lookup_field = "public_url"
 
     def retrieve(self, request, *args, **kwargs):
-        return self.download_file(self.get_object())
+        instance = self.get_object()
+        instance.date_downloaded = now()
+        instance.save(update_fields=["date_downloaded"])
+        return self.download_file(instance)
