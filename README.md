@@ -1,6 +1,6 @@
 # Tiny Cloud
 
-![Dynamic JSON Badge](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fapi.github.com%2Frepos%2FLiaksej%2Fliaksej-tiny-cloud-frontend%2Ftags&query=%24%5B0%5D%5B'name'%5D&label=version)
+![Dynamic JSON Badge](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fapi.github.com%2Frepos%2FLiaksej%2Fliaksej-tiny-cloud-backend%2Ftags&query=%24%5B0%5D%5B'name'%5D&label=version)
 
 **backend-part** -----> frontend-part [here](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/tree/main)
 
