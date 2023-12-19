@@ -51,6 +51,12 @@ class CustomRegisterSerializer(RegisterSerializer):
     last_name = serializers.CharField(max_length=150)
 
     def validate(self, data):
+        if User.objects.filter(username=data["username"]).exists():
+            raise serializers.ValidationError(
+                "A user with that username already exists."
+            )
+        if User.objects.filter(email=data["email"]).exists():
+            raise serializers.ValidationError("A user with that email already exists.")
         if not isinstance(data["first_name"], str):
             raise serializers.ValidationError("First name must be a string")
         if not isinstance(data["last_name"], str):
