@@ -1,6 +1,12 @@
 # Tiny Cloud
 
-Веб-приложение для безопасного облачного хранения файлов.
+![Dynamic JSON Badge](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fapi.github.com%2Frepos%2FLiaksej%2Fliaksej-tiny-cloud-frontend%2Ftags&query=%24%5B0%5D%5B'name'%5D&label=version)
+
+**backend-part** -----> frontend-part [here](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/tree/main)
+
+Веб-приложение для безопасного облачного хранения файлов. 
+
+_Загружайте, храните, отображайте, отправляйте, скачивайте и переименовывайте ваши файлы._
 
 ---
 
@@ -10,7 +16,7 @@
 
 ### Структура frontend ([liaksej-tiny-cloud-frontend](https://github.com/Liaksej/liaksej-tiny-cloud-frontend))
 
-Пользовательская часть приложения написана на TypeScript  b реализована на фреймворке [Nextjs 14.0.3](https://nextjs.org/docs) с App Router.
+Пользовательская часть приложения написана на TypeScript и реализована на фреймворке [Nextjs 14](https://nextjs.org/docs) с App Router.
 
 Помимо [Nextjs](https://nextjs.org/docs) для создания пользовательской части приложения использованы следующие технологии:
 - [React](https://react.dev);
@@ -18,15 +24,15 @@
 - [Auth.js](https://authjs.dev) aka NextAuth.js - гибкое и безопасное решение для аутентификации веб приложений;
 - [clsx](https://github.com/lukeed/clsx) - маленькая утилита для создания условий в строке className;
 - [zod](https://zod.dev) - проверка схемы TypeScript с помощью статического вывода типов;
-- [use-debounce](https://github.com/xnimorz/use-debounce) - реакт-хук для debounce поиска;
-- [sharp](https://github.com/lovell/sharp) - прилжоение для конвертации картинок в меньшие форматы для standalone сборки Nextjs;
+- [use-debounce](https://github.com/xnimorz/use-debounce) - react-хук для debounce поиска;
+- [sharp](https://github.com/lovell/sharp) - приложение для конвертации картинок в меньшие форматы для standalone сборки Nextjs;
 - [cypress](https://www.cypress.io) - приложение для E2E тестирования;
 - [pnpm](https://pnpm.io) - пакетный менеджер;
 - [docker](https://docs.docker.com)
 
 #### Корневой каталог приложения состоит из следующих файлов и директорий:
 
-**[Каталог cypress](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/tree/main/cypress) содержит тесты и настройки для E2E тестирования прилжоения:**
+**[Каталог cypress](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/tree/main/cypress) содержит тесты и настройки для E2E тестирования приложения:**
 
 - [каталог e2e](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/tree/main/cypress/e2e) содержит тесты
 - [каталог fixtures](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/tree/main/cypress/fixtures) содержит предустановленные фикстуры к тестам
@@ -34,8 +40,7 @@
 - [каталог support](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/tree/main/cypress/support) содержит вспомогательные команды и другие полезные утилиты для работы cypress.
 
 _Важный момент:_
-> Cypress не совсем корректно работает с Typescript 5.2 и выше, на котором написано приложение и который используется в настройках
-> Nextjs. Эта проблема описана в [документации](https://nextjs.org/docs/app/building-your-application/testing/cypress). 
+> Cypress не совсем корректно работает с Typescript 5.2 и выше, на котором написано приложение. Эта проблема описана в [документации](https://nextjs.org/docs/app/building-your-application/testing/cypress). 
 > Для успешного запуска тестов необходимо:
 > 1. В файле [tsconfig.json](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/blob/main/tsconfig.json) заменить "moduleResolution": "bundler" на "moduleResolution": "node" на время тестов.
 > 2. Иметь настроенное и запущенное приложение (клиент и сервер);
@@ -44,7 +49,7 @@ _Важный момент:_
 > 
 > Не забудьте вернуть "bundler" в [tsconfig.json](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/blob/main/tsconfig.json) после выполнения тестов.
 
-**[Каталог public](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/tree/main/public)** содержит статические файлы (картинки) для UI приложения.
+**[Каталог public](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/tree/main/public) содержит статические файлы (картинки) для UI приложения.**
 
 Файл hero-desktop.png используется на основании [лицензионного соглашения ](https://pixabay.com/service/license-summary/)
 
@@ -80,7 +85,7 @@ _Важный момент:_
    - файл [`layout.tsx`](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/blob/main/src/app/layout.tsx) - лэйаут главной страницы приложения с основными настройками шрифтов;
    
 - Каталог [lib](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/tree/main/src/lib) содержит сервисные функции
-клиентской части прилжоения.
+клиентской части приложения.
   - файл [`actions`](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/blob/main/src/lib/actions.ts) содержит функции, отвечающие за отправку данных по API, а также изменение этих данных:
     - функция [`authenticate`](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/blob/1b59a73ec121f043f9590699ffa9a690478c9b71/src/lib/actions.ts#L10C26-L10C26) отвечает за авторизацию через форму входа;
     - функция [`sendFileToServer`](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/blob/1b59a73ec121f043f9590699ffa9a690478c9b71/src/lib/actions.ts#L29C30-L29C30) отвечает за загрузку файлов на сервер;
@@ -98,11 +103,11 @@ _Важный момент:_
   - файл [`definitions`](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/blob/main/src/lib/definitions.ts) содержит описания типов и интерфейсов объектов TypeScript;
   - файл [`utils`](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/blob/main/src/lib/utils.ts) содержит функции-утилиты для пагинации, обработки отображаемой даты и размера файлов;
 
-- Каталог [ui](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/tree/main/src/ui) содержит набор реакт-компонентов для UI приложения;
+- Каталог [ui](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/tree/main/src/ui) содержит набор react-компонентов для UI приложения;
   - ветка [`adminPanel`](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/tree/main/src/ui/adminPanel) содержит компоненты административной панели:
     - компонент [`AdminTable`](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/blob/main/src/ui/adminPanel/AdminTable.tsx)- таблица административной панели;
     - компонент [`ChangeAdminStatusButton`](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/blob/main/src/ui/adminPanel/ChangeAdminStatusButton.tsx) - чек-бокс для изменения статуса администратора;
-  - ветка [`dashboard](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/tree/main/src/ui/dashboard)` содержит компоненты панели управления хранилищем пользователя:
+  - ветка [`dashboard`](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/tree/main/src/ui/dashboard) содержит компоненты панели управления хранилищем пользователя:
     - компонент [`Breadcrumbs`](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/blob/main/src/ui/dashboard/Breadcrumbs.tsx) - "хлебные крошки", навигатор по вложенным страницам;
     - компонент [`Buttons`](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/blob/main/src/ui/dashboard/Buttons.tsx) - кнопка удаления файла / пользователя;
     - компонент [`CopyLinkButton`](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/blob/main/src/ui/dashboard/CopyLinkButton.tsx) - кнопка копирования/перехода по публичной ссылке файла;
@@ -115,17 +120,17 @@ _Важный момент:_
   - ветка [`sideNav`](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/tree/main/src/ui/sideNav) содержит компоненты боковой панели;
     - компонент [`AdminLink`](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/blob/main/src/ui/sideNav/AdminLink.tsx) - кнопка доступа к административной панели;
     - компонент [`CloudLogo`](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/blob/main/src/ui/sideNav/CloudLogo.tsx) - логотип приложения;
-    - компонент `[SideNav`](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/blob/main/src/ui/sideNav/SideNav.tsx) - главное UI боковой панели;
+    - компонент [`SideNav`](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/blob/main/src/ui/sideNav/SideNav.tsx) - главное UI боковой панели;
     - компоненты файла [`UploadFile`](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/blob/main/src/ui/sideNav/UploadFile.tsx) - кнопка загрузки файла на боковой панели, а также содержание модального окна и кнопки модального окна загрузки файла; 
   - компонент [`Button`](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/blob/main/src/ui/Button.tsx) - оформление кнопок;
   - компонент [`LoginForm`](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/blob/main/src/ui/LoginForm.tsx) - форма входа в приложение;
   - компонент [`RegistrationForm`](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/blob/main/src/ui/RegistrationForm.tsx) - форма регистрации в приложении;
   - файл [`fonts`](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/blob/main/src/ui/fonts.ts) - определяет шрифты, используемые в UI приложения;
-  - файл [`global.css`](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/blob/main/src/ui/global.css) - определяет некторые глобальные стили приложения, которые не определены для taiwind;
+  - файл [`global.css`](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/blob/main/src/ui/global.css) - определяет некоторые глобальные стили приложения, которые не определены для taiwind;
   - компоненты файла [`skeletons`](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/blob/main/src/ui/skeletons.tsx) - скелетоны для таблиц панели управления хранилищем пользователя / административной панели;
 
-- Файл [auth.config.ts](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/blob/main/src/auth.config.ts) определяет конфигурацию аутентификации в пользовательском интерфейсе приложения и взаимодействие с аутентификацией на сервере;
-- Файл [middleware.ts](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/blob/main/src/middleware.ts) встраивает аутентификацию в middleware приложения, что обеспечивает контроль прав доступа к каждой странице приложения прямо на сервере до отправки страницы пользователю;
+- файл [`auth.config.ts`](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/blob/main/src/auth.config.ts) определяет конфигурацию аутентификации в пользовательском интерфейсе приложения и взаимодействие с аутентификацией на сервере;
+- файл [`middleware.ts`](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/blob/main/src/middleware.ts) встраивает аутентификацию в middleware приложения, что обеспечивает контроль прав доступа к каждой странице приложения прямо на сервере до отправки страницы пользователю;
 
 Остальные файлы в корне каталога:
 
@@ -146,7 +151,7 @@ _Важный момент:_
 
 ### Структура backend ([liaksej-tiny-cloud-backend](https://github.com/Liaksej/liaksej-tiny-cloud-backend))
 
-Серверная часть приложения написана на Python3 реализована на фреймворке [Django 5.0](https://docs.djangoproject.com/en/5.0/) cовместно с [Django REST framework](https://www.django-rest-framework.org).
+Серверная часть приложения написана на Python 3 реализована на фреймворке [Django 5.0](https://docs.djangoproject.com/en/5.0/) cовместно с [Django REST framework](https://www.django-rest-framework.org).
 
 Помимо [Django 5.0](https://docs.djangoproject.com/en/5.0/) и [Django REST framework](https://www.django-rest-framework.org) для создания серверной части приложения использованы следующие технологии:
 - [Simple JWT](https://django-rest-framework-simplejwt.readthedocs.io/en/latest/) - плагин JWT аутентификации для Django REST Framework;
@@ -158,76 +163,76 @@ _Важный момент:_
 
 #### Корневой каталог приложения состоит из следующих файлов и директорий:
 
-**[Каталог autentication](https://github.com/Liaksej/liaksej-tiny-cloud-backend/tree/main/authentication) содержит одноименное приложение сервера Django, отвечающее за аутентификацию и администрирование:**
+**[Каталог authentication](https://github.com/Liaksej/liaksej-tiny-cloud-backend/tree/main/authentication) содержит одноименное приложение сервера Django, отвечающее за аутентификацию и администрирование:**
 
 - ветка [`migrations`](https://github.com/Liaksej/liaksej-tiny-cloud-backend/tree/main/authentication/migrations) содержит модули миграций;
-- модуль [`admin.py`](https://github.com/Liaksej/liaksej-tiny-cloud-backend/blob/main/authentication/admin.py) содержит настройки отображения элементов приложения autentication на административной панели Django;
-- модуль [`apps.py`](https://github.com/Liaksej/liaksej-tiny-cloud-backend/blob/main/authentication/admin.py) содержит информацию о приложении autentication для инициализации в `settings.py`
-- модуль `models.py` не содержит дополнительной информации.
-- модуль `serializers.py` содержит:
-  - класс `UserListSerializer`, обеспечивает сериализацию данных для эндпоинта `/api/auth/users/`;
-  - класс `CustomRegisterSerializer` обеспечивает сериализацию данных для регистрации пользователя, эндпоинт `/api/auth/register/`;
-- модуль `urls.py` описывает эндпоинты приложения autentication;
-- модуль `views.py` описывает следующие DRF-представления приложения autentication:
-    - класс-представление `LoginView` обеспечивает возможность аутентифицированного в пользовательском интерфейсе приложения администратора на панель администратора Django без необходимости проходить повторную аутентификацию;
-    - класс-представление `UsersViewSet` обеспечивает представление списка пользователей, данных отдельного пользователя, удаления пользователя для эндпоинта `/api/auth/users`;
-    - класс-представление `CustomRegisterView` обеспечивает представление регистрации пользователя для эндпоинта `/api/auth/register/`;
+- модуль [`admin.py`](https://github.com/Liaksej/liaksej-tiny-cloud-backend/blob/main/authentication/admin.py) содержит настройки отображения элементов приложения authentication на административной панели Django;
+- модуль [`apps.py`](https://github.com/Liaksej/liaksej-tiny-cloud-backend/blob/main/authentication/admin.py) содержит информацию о приложении authentication для инициализации в [`settings.py`](https://github.com/Liaksej/liaksej-tiny-cloud-backend/blob/main/djangoProject/settings.py);
+- модуль [`models.py`](https://github.com/Liaksej/liaksej-tiny-cloud-backend/blob/main/authentication/models.py) не содержит дополнительной информации;
+- модуль [`serializers.py`](https://github.com/Liaksej/liaksej-tiny-cloud-backend/blob/main/authentication/serializers.py) содержит:
+  - класс [`UserListSerializer`](https://github.com/Liaksej/liaksej-tiny-cloud-backend/blob/31cc0ef15ded13394ff9127d12e0646a3fe68acf/authentication/serializers.py#L10), обеспечивает сериализацию данных для эндпоинта `/api/auth/users/`;
+  - класс [`CustomRegisterSerializer`](https://github.com/Liaksej/liaksej-tiny-cloud-backend/blob/31cc0ef15ded13394ff9127d12e0646a3fe68acf/authentication/serializers.py#L49) обеспечивает сериализацию данных для регистрации пользователя, эндпоинт `/api/auth/register/`;
+- модуль [`urls.py`](https://github.com/Liaksej/liaksej-tiny-cloud-backend/blob/main/authentication/urls.py) описывает эндпоинты приложения authentication;
+- модуль [`views.py`](https://github.com/Liaksej/liaksej-tiny-cloud-backend/blob/main/authentication/views.py) описывает следующие DRF-представления приложения authentication:
+    - класс-представление [`LoginView`](https://github.com/Liaksej/liaksej-tiny-cloud-backend/blob/31cc0ef15ded13394ff9127d12e0646a3fe68acf/authentication/views.py#L32) обеспечивает возможность аутентифицированного в пользовательском интерфейсе приложения администратора на панель администратора Django без необходимости проходить повторную аутентификацию;
+    - класс-представление [`UsersViewSet`](https://github.com/Liaksej/liaksej-tiny-cloud-backend/blob/31cc0ef15ded13394ff9127d12e0646a3fe68acf/authentication/views.py#L40) обеспечивает представление списка пользователей, данных отдельного пользователя, удаления пользователя для эндпоинта `/api/auth/users`;
+    - класс-представление [`CustomRegisterView`](https://github.com/Liaksej/liaksej-tiny-cloud-backend/blob/31cc0ef15ded13394ff9127d12e0646a3fe68acf/authentication/views.py#L71) обеспечивает представление регистрации пользователя для эндпоинта `/api/auth/register/`;
 
 **[Каталог cloud](https://github.com/Liaksej/liaksej-tiny-cloud-backend/tree/main/cloud) содержит одноименное приложение сервера Django, отвечающее за работу с хранилищем файлов пользователя:**
 
-- ветка `migrations` содержит модули миграций;
-- модуль `admin.py` содержит настройки отображения элементов приложения cloud на административной панели Django;
-- модуль `apps.py` содержит информацию о приложении cloud для инициализации в `settings.py`
-- модуль `models.py` содержит описание моделей приложения cloud:
-  - класс `User` описывает модель пользователя;
-  - класс `File` описывает модель файла;
-- модуль `permissions.py` содержит дополнительные настройки авторизации:
-  - класс `IsOwner` проверяет наличие прав владельца файла;
-  - класс `IsOwnerOrStaff` проверяет наличие прав владельца файла или администратора;
-- модуль `serializers.py` содержит сериалайзер:
-  - класс `FilesListSerializer`обеспечивает сериализацию данных для отображений списка файлов или файла, эндпоинт `/api/cloud/files/`;
-- модуль `services.py` содержит сервисные функции для сохранения файлана сервер и удаления файла с сервера;
-- модуль `urls.py` описывает эндпоинты приложения cloud;
-- модуль `views.py`описывает следующие DRF-представления приложения cloud:
-    - класс-представление `FileViewSet` обеспечивает представление списка файлов, данных отдельного файла, удаления и изменения файлов для эндпоинта `/api/cloud/files/`;
-    - класс-представление `FileDownloadMixin` обеспечивает корректность процесса передачи файла пользователю (владельцу) для эндпоинта `/api/cloud/download/`;
-    - класс-представление `DownloadFileView` обеспечивает процесс передачи файла владельцу (владельцу) для эндпоинта `/api/cloud/download/`;
-    - класс-представление `PublicFileDownloadView` обеспечивает процесс передачи публичного файла пользователю для эндпоинта `/api/cloud/public/`;
+- ветка [`migrations`](https://github.com/Liaksej/liaksej-tiny-cloud-backend/tree/main/cloud/migrations) содержит модули миграций;
+- модуль [`admin.py`](https://github.com/Liaksej/liaksej-tiny-cloud-backend/blob/main/cloud/admin.py) содержит настройки отображения элементов приложения cloud на административной панели Django;
+- модуль [`apps.py`](https://github.com/Liaksej/liaksej-tiny-cloud-backend/blob/main/cloud/apps.py) содержит информацию о приложении cloud для инициализации в [`settings.py`](https://github.com/Liaksej/liaksej-tiny-cloud-backend/blob/main/djangoProject/settings.py);
+- модуль [`models.py`](https://github.com/Liaksej/liaksej-tiny-cloud-backend/blob/main/cloud/models.py) содержит описание моделей приложения cloud:
+  - класс [`User`](https://github.com/Liaksej/liaksej-tiny-cloud-backend/blob/31cc0ef15ded13394ff9127d12e0646a3fe68acf/cloud/models.py#L7) описывает модель пользователя;
+  - класс [`File`](https://github.com/Liaksej/liaksej-tiny-cloud-backend/blob/31cc0ef15ded13394ff9127d12e0646a3fe68acf/cloud/models.py#L46) описывает модель файла;
+- модуль [`permissions.py`](https://github.com/Liaksej/liaksej-tiny-cloud-backend/blob/main/cloud/permissions.py) содержит дополнительные настройки авторизации:
+  - класс [`IsOwner`](https://github.com/Liaksej/liaksej-tiny-cloud-backend/blob/31cc0ef15ded13394ff9127d12e0646a3fe68acf/cloud/permissions.py#L4) проверяет наличие прав владельца файла;
+  - класс [`IsOwnerOrStaff`](https://github.com/Liaksej/liaksej-tiny-cloud-backend/blob/31cc0ef15ded13394ff9127d12e0646a3fe68acf/cloud/permissions.py#L9) проверяет наличие прав владельца файла или администратора;
+- модуль [`serializers.py`](https://github.com/Liaksej/liaksej-tiny-cloud-backend/blob/main/cloud/serializers.py) содержит сериалайзер:
+  - класс [`FilesListSerializer`](https://github.com/Liaksej/liaksej-tiny-cloud-backend/blob/31cc0ef15ded13394ff9127d12e0646a3fe68acf/cloud/serializers.py#L8) обеспечивает сериализацию данных для отображений списка файлов или файла, эндпоинт `/api/cloud/files/`;
+- модуль [`services.py`](https://github.com/Liaksej/liaksej-tiny-cloud-backend/blob/main/cloud/services.py) содержит сервисные функции для сохранения файла на сервер и удаления файла с сервера;
+- модуль [`urls.py`](https://github.com/Liaksej/liaksej-tiny-cloud-backend/blob/main/cloud/urls.py) описывает эндпоинты приложения cloud;
+- модуль [`views.py`](https://github.com/Liaksej/liaksej-tiny-cloud-backend/blob/main/cloud/views.py) описывает следующие DRF-представления приложения cloud:
+    - класс-представление [`FileViewSet`](https://github.com/Liaksej/liaksej-tiny-cloud-backend/blob/31cc0ef15ded13394ff9127d12e0646a3fe68acf/cloud/views.py#L19) обеспечивает представление списка файлов, данных отдельного файла, удаления и изменения файлов для эндпоинта `/api/cloud/files/`;
+    - класс-представление [`FileDownloadMixin`](https://github.com/Liaksej/liaksej-tiny-cloud-backend/blob/31cc0ef15ded13394ff9127d12e0646a3fe68acf/cloud/views.py#L64C11-L64C11) обеспечивает корректность процесса передачи файла пользователю (владельцу) для эндпоинта `/api/cloud/download/`;
+    - класс-представление [`DownloadFileView`](https://github.com/Liaksej/liaksej-tiny-cloud-backend/blob/31cc0ef15ded13394ff9127d12e0646a3fe68acf/cloud/views.py#L84C14-L84C14) обеспечивает процесс передачи файла владельцу (владельцу) для эндпоинта `/api/cloud/download/`;
+    - класс-представление [`PublicFileDownloadView`](https://github.com/Liaksej/liaksej-tiny-cloud-backend/blob/31cc0ef15ded13394ff9127d12e0646a3fe68acf/cloud/views.py#L93) обеспечивает процесс передачи публичного файла пользователю для эндпоинта `/api/cloud/public/`;
 
 **[Каталог djangoProject](https://github.com/Liaksej/liaksej-tiny-cloud-backend/tree/main/djangoProject) содержит основные настройки сервера фреймворка Django:**
 
-- модуль `asgi.py` - асинхронная веб-спецификация между сервером и приложением;
-- модуль `settings.py` содержит основные настройки сервера;
-- модуль `test_settings.py` содержит корректирующие настройки сервера для тестирования;
-- модуль `urls.py` содержит основные эндпоинты сервера;
-- модуль `wsgi.py` - веб-спецификация между сервером и приложением;
+- модуль [`asgi.py`](https://github.com/Liaksej/liaksej-tiny-cloud-backend/blob/main/djangoProject/asgi.py) - асинхронная веб-спецификация между сервером и приложением;
+- модуль [`settings.py`](https://github.com/Liaksej/liaksej-tiny-cloud-backend/blob/main/djangoProject/settings.py) содержит основные настройки сервера;
+- модуль [`test_settings.py`](https://github.com/Liaksej/liaksej-tiny-cloud-backend/blob/main/djangoProject/test_settings.py) содержит корректирующие настройки сервера для тестирования;
+- модуль [`urls.py`](https://github.com/Liaksej/liaksej-tiny-cloud-backend/blob/main/djangoProject/urls.py) содержит основные эндпоинты сервера;
+- модуль [`wsgi.py`](https://github.com/Liaksej/liaksej-tiny-cloud-backend/blob/main/djangoProject/wsgi.py) - веб-спецификация между сервером и приложением;
 
 **[Каталог nginx](https://github.com/Liaksej/liaksej-tiny-cloud-backend/tree/main/nginx) содержит настройки Nginx:**
 
-- файл `Dockerfile` содержит инструкции по сборке контейнера nginx;
-- файл `nginx.conf` содержит настройки nginx;
+- файл [`Dockerfile`](https://github.com/Liaksej/liaksej-tiny-cloud-backend/blob/main/nginx/Dockerfile) содержит инструкции по сборке контейнера nginx;
+- файл [`nginx.conf`](https://github.com/Liaksej/liaksej-tiny-cloud-backend/blob/main/nginx/nginx.conf) содержит настройки nginx;
 
 **[Каталог tests](https://github.com/Liaksej/liaksej-tiny-cloud-backend/tree/main/tests) содержит юнит и интеграционные тесты, а также фикстуры и моки для сервера:**
 
-- каталог `tests_authentication` содержит модуль `test_auth_api.py` с интеграционными тестами приложения authentication ;
-- каталог `tests_cloud` содержит:
-  - модуль `test_cloud_api.py` с интеграционными тестами приложения cloud;
-  - модуль `test_services.py` с юнит-тестами сервисных функций приложения cloud;
+- каталог [`tests_authentication`](https://github.com/Liaksej/liaksej-tiny-cloud-backend/tree/main/tests/tests_authentication) содержит модуль [`test_auth_api.py`](https://github.com/Liaksej/liaksej-tiny-cloud-backend/blob/main/tests/tests_authentication/test_auth_api.py) с интеграционными тестами приложения authentication ;
+- каталог [`tests_cloud`](https://github.com/Liaksej/liaksej-tiny-cloud-backend/tree/main/tests/tests_cloud) содержит:
+  - модуль [`test_cloud_api.py`](https://github.com/Liaksej/liaksej-tiny-cloud-backend/blob/main/tests/tests_cloud/test_cloud_api.py) с интеграционными тестами приложения cloud;
+  - модуль [`test_services.py`](https://github.com/Liaksej/liaksej-tiny-cloud-backend/blob/main/tests/tests_cloud/test_services.py) с юнит-тестами сервисных функций приложения cloud;
 
 **Остальные файлы в корне каталога:**
 
-- `.coveragerc` содержит настройки для пакета coverage, обеспечивающего проверку покрытия тестами приложения;
-- `.dockerignore` содержит перечень файлов, игнорируемых Docker при сборке;
-- `.example.env` - пример настроек переменных окружения для сборки и работы сервера Django;
-- `.example.env.db` - пример настроек переменных окружения для сборки и работы базы данных;
--  `.gitignore` - содержит перечень файлов, игнорируемых Git;
-- `Dockerfile` - содержит команды сборки контейнера сервера Django;
-- `docker-compose.yml` - содержит настройки для запуска контейнеров приложения;
-- `entrypoint.sh` - shell-скрипт, проверяющий запуск базы данных перед стартом контейнера с сервером Django;
-- `manage.py` - исполняемый модуль сервера Django;
-- `poetry.lock` - содержит сервисную информацию об установленных пакетах пакетного менеджера Poetry;
-- `pyproject.toml` - содержит перечень установленных пакетов и настройки конфигурации приложения для пакетного менеджера Poetry;
-- `pytest.ini` - файл настроек для pytest;
+- [`.coveragerc`](https://github.com/Liaksej/liaksej-tiny-cloud-backend/blob/main/.coveragerc) содержит настройки для пакета coverage, обеспечивающего проверку покрытия тестами приложения;
+- [`.dockerignore`](https://github.com/Liaksej/liaksej-tiny-cloud-backend/blob/main/.dockerignore) содержит перечень файлов, игнорируемых Docker при сборке;
+- [`.example.env`](https://github.com/Liaksej/liaksej-tiny-cloud-backend/blob/main/.example.env) - пример настроек переменных окружения для сборки и работы сервера Django;
+- [`.example.env.db`](https://github.com/Liaksej/liaksej-tiny-cloud-backend/blob/main/.example.env.db) - пример настроек переменных окружения для сборки и работы базы данных;
+-  [`.gitignore`](https://github.com/Liaksej/liaksej-tiny-cloud-backend/blob/main/.gitignore) - содержит перечень файлов, игнорируемых Git;
+- [`Dockerfile`](https://github.com/Liaksej/liaksej-tiny-cloud-backend/blob/main/Dockerfile) - содержит команды сборки контейнера сервера Django;
+- [`docker-compose.yml`](https://github.com/Liaksej/liaksej-tiny-cloud-backend/blob/main/docker-compose.yml) - содержит настройки для запуска контейнеров приложения;
+- [`entrypoint.sh`](https://github.com/Liaksej/liaksej-tiny-cloud-backend/blob/main/entrypoint.sh) - shell-скрипт, проверяющий запуск базы данных перед стартом контейнера с сервером Django;
+- [`manage.py`](https://github.com/Liaksej/liaksej-tiny-cloud-backend/blob/main/manage.py) - исполняемый модуль сервера Django;
+- [`poetry.lock`](https://github.com/Liaksej/liaksej-tiny-cloud-backend/blob/main/poetry.lock) - содержит сервисную информацию об установленных пакетах пакетного менеджера Poetry;
+- [`pyproject.toml`](https://github.com/Liaksej/liaksej-tiny-cloud-backend/blob/main/pyproject.toml) - содержит перечень установленных пакетов и настройки конфигурации приложения для пакетного менеджера Poetry;
+- [`pytest.ini`](https://github.com/Liaksej/liaksej-tiny-cloud-backend/blob/main/pytest.ini) - файл настроек для pytest;
 
 ---
 ## Инструкция по установке на сервер
@@ -237,7 +242,7 @@ _Важный момент:_
 Для установки понадобится порядка 1,5 Гб свободного дискового пространства для проекта, 
 помимо места для установки [docker](https://docs.docker.com/engine/) и [docker-compose](https://docs.docker.com/compose/install/).
 
-### Процеcc установки
+### Процесс установки
 
 ##### Подготовка ПО:
 1. Установите Docker: https://docs.docker.com/engine/
@@ -316,7 +321,7 @@ _Важный момент:_
    # ...
    ```
 
-##### Cборка приложения:
+##### Сборка приложения:
 1. Вернитесь в каталог `liaksej-tiny-cloud-backen`. Вы готовы к запуску сборки проекта на сервере.
 2. Находясь в каталоге `liaksej-tiny-cloud-backen`, запустите сборку приложения через командную строку:
    ```shell
