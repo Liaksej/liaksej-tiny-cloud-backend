@@ -1,5 +1,100 @@
 # Tiny Cloud
 
+Веб-приложение для безопасного облачного хранения файлов.
+
+---
+
+## Структура приложения
+
+Приложение состоит из двух частей: backend и frontend. Каждая часть помещена в отдельный репозиторий. 
+
+### Структура frontend ([liaksej-tiny-cloud-frontend](https://github.com/Liaksej/liaksej-tiny-cloud-frontend))
+
+Пользовательская часть приложения написана на TypeScript  b реализована на фреймворке [Nextjs 14.0.3](https://nextjs.org/docs) с App Router.
+
+Помимо [Nextjs](https://nextjs.org/docs) для создания пользовательской части приложения использованы следующие технологии:
+- [React](https://react.dev);
+- [tailwindcss](https://tailwindcss.com/docs);
+- [Auth.js](https://authjs.dev) aka NextAuth.js - гибкое и безопасное решение для аутентификации веб приложений;
+- [clsx](https://github.com/lukeed/clsx) - маленькая утилита для создания условий в строке className;
+- [zod](https://zod.dev) - проверка схемы TypeScript с помощью статического вывода типов;
+- [use-debounce](https://github.com/xnimorz/use-debounce) - реакт-хук для debounce поиска;
+- [sharp](https://github.com/lovell/sharp) - прилжоение для конвертации картинок в меньшие форматы для standalone сборки Nextjs;
+- [cypress](https://www.cypress.io) - приложение для E2E тестирования;
+- [pnpm](https://pnpm.io) - пакетный менеджер;
+- [docker](https://docs.docker.com)
+
+Корневой каталог приложения состоит из следующих файлов и директорий:
+
+[Каталог cypress](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/tree/main/cypress) содержит тесты и настройки для E2E тестирования прилжоения:
+
+- [каталог e2e](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/tree/main/cypress/e2e) содержит тесты
+- [каталог fixtures](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/tree/main/cypress/fixtures) содержит предустановленные фикстуры к тестам
+- [каталог integration](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/tree/main/cypress/integration) содержит скрипты для аутентификации
+- [каталог support](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/tree/main/cypress/support) содержит вспомогательные команды и другие полезные утилиты для работы cypress.
+
+_Важный момент:_
+> Cypress не совсем корректно работает с Typescript 5.2 и выше, на котором написано приложение и который используется в настройках
+> Nextjs. Эта проблема описана в [документации](https://nextjs.org/docs/app/building-your-application/testing/cypress). 
+> Для успешного запуска тестов необходимо:
+> 1. В файле [tsconfig.json](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/blob/main/tsconfig.json) заменить "moduleResolution": "bundler" на "moduleResolution": "node" на время тестов.
+> 2. Иметь настроенное и запущенное приложение (клиент и сервер);
+> 3. Иметь суперпользователя с электронной почтой admin@example.com и паролем 45641231.
+> 4. Команда для запуска `pnpm run cypress:run`
+> 
+> Не забудьте вернуть "bundler" в [tsconfig.json](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/blob/main/tsconfig.json) после выполнения тестов.
+
+[Каталог public](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/tree/main/public) содержит статические файлы (картинки) для UI приложения.
+
+Файл hero-desktop.png используется на основании [лицензионного соглашения ](https://pixabay.com/service/license-summary/)
+
+[Каталог src](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/tree/main/src) является основным каталогом приложения, в котором хранится вся его кодовая база:
+
+Каталог разбит на следующие подкаталоги:
+
+ [app](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/tree/main/src/app) - каталог представляет собой [роутер приложения](https://nextjs.org/docs/app/building-your-application/routing).
+ - ветка `admin` - роут на панель администратора пользовательского интерфейса, содержит:
+   - файл `page.tsx` - страница панели администратора пользовательского интерфейса;
+   - файл `layout.tsx` - лэйаут страницы панели администратора пользовательского интерфейса;
+   - файл `error.tsx` - страница-заглушка при возникновении ошибки на панели администратора;
+   - ветка `[name]` - роут в пользовательское хранилище из панели администратора. Он состоит из:
+     - файл `page.tsx` - страница пользовательского хранилища из панели администратора;
+     - файл `error.tsx` - страница-заглушка при возникновении ошибки на панели администратора;
+     - ветка `[id]/edit` - роут на страницу редактирования атрибутов файла пользователя из панели администратора;
+       - файл `page.tsx` - страница редактирования атрибутов файла пользователя из панели администратора;
+       - файл `not_found.tsx` - страница-заглушка на случай перехода на страницу редактирования атрибутов файла пользователя из панели администратора, которая не существует;
+ - ветка `dashboard` - роут на главную панель управления личных файловым хранилищем;
+   - файл page.tsx - страница панели управления личных файловым хранилищем;
+   - файл `layout.tsx` - лэйаут страницы панели управления личных файловым хранилищем;
+   - файл `error.tsx` - страница-заглушка при возникновении ошибки на панели администратора;
+   - ветка `[id]/edit` - роут на страницу редактирования атрибутов файла пользователя;
+     - файл `page.tsx` - страница редактирования атрибутов файла пользователя;
+     - файл `not_found.tsx` - страница-заглушка на случай перехода на страницу редактирования атрибутов файла пользователя, которая не существует;
+ - ветка `download/[id]` - роут к эндпоинту для скачивания приватного файла пользователя;
+   - файл `route.ts` - [route handler](https://nextjs.org/docs/app/building-your-application/routing/route-handlers) для получения приватного файла пользователя, выполняющий процесс аутентификации.
+ - ветка `login` - роут на страницу входа в приложение;
+   - файл `page.tsx` - страница входа в приложение;
+ - ветка signup - роут на страницу регистрации в приложении;
+   - файл `page.tsx` - страница регистрации в приложении;
+ - файл `page.tsx` - главная страница приложения;
+ - файл `layout.tsx` - лэйаут главной страницы приложения с основными настройками шрифтов;
+   
+ 
+
+
+### Структура backend ([liaksej-tiny-cloud-backend](https://github.com/Liaksej/liaksej-tiny-cloud-backend))
+
+Серверная часть приложения написана на Python3 реализована на фреймворке [Django 5.0](https://docs.djangoproject.com/en/5.0/) cовместно с [Django REST framework](https://www.django-rest-framework.org).
+
+Помимо [Django 5.0](https://docs.djangoproject.com/en/5.0/) и [Django REST framework](https://www.django-rest-framework.org) для создания серверной части приложения использованы следующие технологии:
+- [Simple JWT](https://django-rest-framework-simplejwt.readthedocs.io/en/latest/) - плагин JWT аутентификации для Django REST Framework;
+- [poetry](https://python-poetry.org) - менеджер пакетов для python;
+- [pytest](https://docs.pytest.org/en/7.4.x/) - фреймворк для тестирования;
+- [beautifulsoup4](https://beautiful-soup-4.readthedocs.io/en/latest/) - библиотеке для парсинга HTML;
+- [docker](https://docs.docker.com);
+- [docker-compose](https://docs.docker.com/compose/);
+
+---
 ## Инструкция по установке на сервер
 
 Приложение можно развернуть на сервере, поддерживающем docker.
@@ -122,6 +217,8 @@
 2. Откройте браузер и перейдите на главную страницу вашего хоста. Если вы все сделали правильно, откроется
    главная страница приложения. 
 3. Пройдите процесс регистрации и получите права администратора, как указано в примечании выше.
+
+---
 
 
 
