@@ -24,9 +24,9 @@
 - [pnpm](https://pnpm.io) - пакетный менеджер;
 - [docker](https://docs.docker.com)
 
-Корневой каталог приложения состоит из следующих файлов и директорий:
+#### Корневой каталог приложения состоит из следующих файлов и директорий:
 
-[Каталог cypress](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/tree/main/cypress) содержит тесты и настройки для E2E тестирования прилжоения:
+**[Каталог cypress](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/tree/main/cypress) содержит тесты и настройки для E2E тестирования прилжоения:**
 
 - [каталог e2e](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/tree/main/cypress/e2e) содержит тесты
 - [каталог fixtures](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/tree/main/cypress/fixtures) содержит предустановленные фикстуры к тестам
@@ -44,42 +44,104 @@ _Важный момент:_
 > 
 > Не забудьте вернуть "bundler" в [tsconfig.json](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/blob/main/tsconfig.json) после выполнения тестов.
 
-[Каталог public](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/tree/main/public) содержит статические файлы (картинки) для UI приложения.
+**[Каталог public](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/tree/main/public)** содержит статические файлы (картинки) для UI приложения.
 
 Файл hero-desktop.png используется на основании [лицензионного соглашения ](https://pixabay.com/service/license-summary/)
 
-[Каталог src](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/tree/main/src) является основным каталогом приложения, в котором хранится вся его кодовая база:
+**[Каталог src](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/tree/main/src) является основным каталогом приложения, в котором хранится вся его кодовая база:**
 
 Каталог разбит на следующие подкаталоги:
 
- [app](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/tree/main/src/app) - каталог представляет собой [роутер приложения](https://nextjs.org/docs/app/building-your-application/routing).
- - ветка `admin` - роут на панель администратора пользовательского интерфейса, содержит:
-   - файл `page.tsx` - страница панели администратора пользовательского интерфейса;
-   - файл `layout.tsx` - лэйаут страницы панели администратора пользовательского интерфейса;
-   - файл `error.tsx` - страница-заглушка при возникновении ошибки на панели администратора;
-   - ветка `[name]` - роут в пользовательское хранилище из панели администратора. Он состоит из:
-     - файл `page.tsx` - страница пользовательского хранилища из панели администратора;
-     - файл `error.tsx` - страница-заглушка при возникновении ошибки на панели администратора;
-     - ветка `[id]/edit` - роут на страницу редактирования атрибутов файла пользователя из панели администратора;
-       - файл `page.tsx` - страница редактирования атрибутов файла пользователя из панели администратора;
-       - файл `not_found.tsx` - страница-заглушка на случай перехода на страницу редактирования атрибутов файла пользователя из панели администратора, которая не существует;
- - ветка `dashboard` - роут на главную панель управления личных файловым хранилищем;
-   - файл page.tsx - страница панели управления личных файловым хранилищем;
-   - файл `layout.tsx` - лэйаут страницы панели управления личных файловым хранилищем;
-   - файл `error.tsx` - страница-заглушка при возникновении ошибки на панели администратора;
-   - ветка `[id]/edit` - роут на страницу редактирования атрибутов файла пользователя;
-     - файл `page.tsx` - страница редактирования атрибутов файла пользователя;
-     - файл `not_found.tsx` - страница-заглушка на случай перехода на страницу редактирования атрибутов файла пользователя, которая не существует;
- - ветка `download/[id]` - роут к эндпоинту для скачивания приватного файла пользователя;
-   - файл `route.ts` - [route handler](https://nextjs.org/docs/app/building-your-application/routing/route-handlers) для получения приватного файла пользователя, выполняющий процесс аутентификации.
- - ветка `login` - роут на страницу входа в приложение;
-   - файл `page.tsx` - страница входа в приложение;
- - ветка signup - роут на страницу регистрации в приложении;
-   - файл `page.tsx` - страница регистрации в приложении;
- - файл `page.tsx` - главная страница приложения;
- - файл `layout.tsx` - лэйаут главной страницы приложения с основными настройками шрифтов;
+ - Каталог [app](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/tree/main/src/app) - это [роутер](https://nextjs.org/docs/app/building-your-application/routing) приложения.
+   - ветка [`admin`](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/tree/main/src/app/admin) - роут на панель администратора пользовательского интерфейса, содержит:
+     - файл [`page.tsx`](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/blob/main/src/app/admin/page.tsx) - страница панели администратора пользовательского интерфейса;
+     - файл [`layout.tsx`](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/blob/main/src/app/admin/layout.tsx) - лэйаут страницы панели администратора пользовательского интерфейса;
+     - файл [`error.tsx`](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/blob/main/src/app/admin/error.tsx) - страница-заглушка при возникновении ошибки на панели администратора;
+     - ветка [`[name]`](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/tree/main/src/app/admin/%5Bname%5D) - роут в пользовательское хранилище из панели администратора. Он состоит из:
+       - файл [`page.tsx`](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/blob/main/src/app/admin/%5Bname%5D/page.tsx) - страница пользовательского хранилища из панели администратора;
+       - файл [`error.tsx`](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/blob/main/src/app/admin/%5Bname%5D/error.tsx) - страница-заглушка при возникновении ошибки на панели администратора;
+       - ветка [`[id]/edit`](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/tree/main/src/app/admin/%5Bname%5D/%5Bid%5D/edit) - роут на страницу редактирования атрибутов файла пользователя из панели администратора;
+         - файл [`page.tsx`](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/blob/main/src/app/admin/%5Bname%5D/%5Bid%5D/edit/page.tsx) - страница редактирования атрибутов файла пользователя из панели администратора;
+         - файл [`not_found.tsx`](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/blob/main/src/app/admin/%5Bname%5D/%5Bid%5D/edit/not-found.tsx) - страница-заглушка на случай перехода на страницу редактирования атрибутов файла пользователя из панели администратора, которая не существует;
+   - ветка [`dashboard`](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/tree/main/src/app/dashboard) - роут на главную панель управления личных файловым хранилищем;
+     - файл [`page.tsx`](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/blob/main/src/app/dashboard/page.tsx) - страница панели управления личных файловым хранилищем;
+     - файл [`layout.tsx`](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/blob/main/src/app/dashboard/layout.tsx) - лэйаут страницы панели управления личных файловым хранилищем;
+     - файл [`error.tsx`](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/blob/main/src/app/dashboard/error.tsx) - страница-заглушка при возникновении ошибки на панели администратора;
+     - ветка [`[id]/edit`](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/tree/main/src/app/dashboard/%5Bid%5D/edit) - роут на страницу редактирования атрибутов файла пользователя;
+       - файл [`page.tsx`](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/blob/main/src/app/dashboard/%5Bid%5D/edit/page.tsx) - страница редактирования атрибутов файла пользователя;
+       - файл [`not_found.tsx`](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/blob/main/src/app/dashboard/%5Bid%5D/edit/not-found.tsx) - страница-заглушка на случай перехода на страницу редактирования атрибутов файла пользователя, которая не существует;
+   - ветка [`download/[id]`](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/tree/main/src/app/download/%5Bid%5D) - роут к эндпоинту для скачивания приватного файла пользователя;
+     - файл [`route.ts`](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/blob/main/src/app/download/%5Bid%5D/route.ts) - [route handler](https://nextjs.org/docs/app/building-your-application/routing/route-handlers) для получения приватного файла пользователя, выполняющий процесс аутентификации.
+   - ветка [`login`](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/tree/main/src/app/login) - роут на страницу входа в приложение;
+     - файл [`page.tsx`](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/blob/main/src/app/login/page.tsx) - страница входа в приложение;
+   - ветка [`signup`](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/tree/main/src/app/signup) - роут на страницу регистрации в приложении;
+     - файл [`page.tsx`](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/blob/main/src/app/signup/page.tsx) - страница регистрации в приложении;
+   - файл [`page.tsx`](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/blob/main/src/app/page.tsx) - главная страница приложения;
+   - файл [`layout.tsx`](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/blob/main/src/app/layout.tsx) - лэйаут главной страницы приложения с основными настройками шрифтов;
    
- 
+- Каталог [lib](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/tree/main/src/lib) содержит сервисные функции
+клиентской части прилжоения.
+  - файл [`actions`](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/blob/main/src/lib/actions.ts) содержит функции, отвечающие за отправку данных по API, а также изменение этих данных:
+    - функция [`authenticate`](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/blob/1b59a73ec121f043f9590699ffa9a690478c9b71/src/lib/actions.ts#L10C26-L10C26) отвечает за авторизацию через форму входа;
+    - функция [`sendFileToServer`](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/blob/1b59a73ec121f043f9590699ffa9a690478c9b71/src/lib/actions.ts#L29C30-L29C30) отвечает за загрузку файлов на сервер;
+    - функция [`deleteFile`](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/blob/1b59a73ec121f043f9590699ffa9a690478c9b71/src/lib/actions.ts#L62C24-L62C24) отвечает за удаление файла с сервера;
+    - функция [`deleteUser`](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/blob/1b59a73ec121f043f9590699ffa9a690478c9b71/src/lib/actions.ts#L89C29-L89C29) отвечает за удаление пользователя;
+    - функция [`updateFile`](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/blob/1b59a73ec121f043f9590699ffa9a690478c9b71/src/lib/actions.ts#L116C26-L116C26) отвечает за внесение изменений в файл;
+    - функция [`updateAdminStatus`](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/blob/1b59a73ec121f043f9590699ffa9a690478c9b71/src/lib/actions.ts#L155C27-L155C27) отвечает за изменение статуса администратора у пользователя;
+    - функция [`registrate`](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/blob/1b59a73ec121f043f9590699ffa9a690478c9b71/src/lib/actions.ts#L186C24-L186C24) отвечает за регистрацию пользователя в приложении;
+  - файл [`data`](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/blob/main/src/lib/data.ts) содержит функции, отвечающие за получение данных по API:
+    - функция [`fetchDataFromAPI`](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/blob/1b59a73ec121f043f9590699ffa9a690478c9b71/src/lib/data.ts#L6C27-L6C27) отвечает за выполнение fetch-запросов;
+    - функция [`fetchTableData`](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/blob/1b59a73ec121f043f9590699ffa9a690478c9b71/src/lib/data.ts#L39C27-L39C27) отвечает за получение списка файлов / пользователей;
+    - функция [`fetchFilesPages`](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/blob/1b59a73ec121f043f9590699ffa9a690478c9b71/src/lib/data.ts#L68C26-L68C26) отвечает за получение количества страниц для пагинатора;
+    - функция [`fetchFile`](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/blob/1b59a73ec121f043f9590699ffa9a690478c9b71/src/lib/data.ts#L92) отвечает за получение данных о конкретном файле;
+    - функция [`adminCheck`](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/blob/1b59a73ec121f043f9590699ffa9a690478c9b71/src/lib/data.ts#L106) отвечает за дополнительную проверку прав доступа пользователя (если пользователь является администратором, в интерфейсе отображается административная панель);
+  - файл [`definitions`](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/blob/main/src/lib/definitions.ts) содержит описания типов и интерфейсов объектов TypeScript;
+  - файл [`utils`](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/blob/main/src/lib/utils.ts) содержит функции-утилиты для пагинации, обработки отображаемой даты и размера файлов;
+
+- Каталог [ui](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/tree/main/src/ui) содержит набор реакт-компонентов для UI приложения;
+  - ветка [`adminPanel`](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/tree/main/src/ui/adminPanel) содержит компоненты административной панели:
+    - компонент [`AdminTable`](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/blob/main/src/ui/adminPanel/AdminTable.tsx)- таблица административной панели;
+    - компонент [`ChangeAdminStatusButton`](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/blob/main/src/ui/adminPanel/ChangeAdminStatusButton.tsx) - чек-бокс для изменения статуса администратора;
+  - ветка [`dashboard](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/tree/main/src/ui/dashboard)` содержит компоненты панели управления хранилищем пользователя:
+    - компонент [`Breadcrumbs`](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/blob/main/src/ui/dashboard/Breadcrumbs.tsx) - "хлебные крошки", навигатор по вложенным страницам;
+    - компонент [`Buttons`](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/blob/main/src/ui/dashboard/Buttons.tsx) - кнопка удаления файла / пользователя;
+    - компонент [`CopyLinkButton`](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/blob/main/src/ui/dashboard/CopyLinkButton.tsx) - кнопка копирования/перехода по публичной ссылке файла;
+    - компонент [`DashboardTable`](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/blob/main/src/ui/dashboard/DashboardTable.tsx) - таблица панели управления хранилищем пользователя;
+    - компонент [`EditFileForm`](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/blob/main/src/ui/dashboard/EditFileForm.tsx) - форма редактирования данных файла;
+    - компонент [`ModalUpload`](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/blob/main/src/ui/dashboard/ModalUpload.tsx) - оформление модального окна загрузки файла;
+    - компоненты из файла [`Pagination`](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/blob/main/src/ui/dashboard/Pagination.tsx) - элементы пагинации на панели управления хранилищем пользователя и административной панели;
+    - компонент [`Search`](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/blob/main/src/ui/dashboard/Search.tsx) - поле поиска по названию файла на панели управления хранилищем пользователя / имени пользователя на административной панели;
+    - компонент [`UpdateInfoButton`](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/blob/main/src/ui/dashboard/UpdateInfoButton.tsx) - кнопка сохранения изменений в форме редактирования данных файла;
+  - ветка [`sideNav`](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/tree/main/src/ui/sideNav) содержит компоненты боковой панели;
+    - компонент [`AdminLink`](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/blob/main/src/ui/sideNav/AdminLink.tsx) - кнопка доступа к административной панели;
+    - компонент [`CloudLogo`](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/blob/main/src/ui/sideNav/CloudLogo.tsx) - логотип приложения;
+    - компонент `[SideNav`](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/blob/main/src/ui/sideNav/SideNav.tsx) - главное UI боковой панели;
+    - компоненты файла [`UploadFile`](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/blob/main/src/ui/sideNav/UploadFile.tsx) - кнопка загрузки файла на боковой панели, а также содержание модального окна и кнопки модального окна загрузки файла; 
+  - компонент [`Button`](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/blob/main/src/ui/Button.tsx) - оформление кнопок;
+  - компонент [`LoginForm`](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/blob/main/src/ui/LoginForm.tsx) - форма входа в приложение;
+  - компонент [`RegistrationForm`](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/blob/main/src/ui/RegistrationForm.tsx) - форма регистрации в приложении;
+  - файл [`fonts`](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/blob/main/src/ui/fonts.ts) - определяет шрифты, используемые в UI приложения;
+  - файл [`global.css`](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/blob/main/src/ui/global.css) - определяет некторые глобальные стили приложения, которые не определены для taiwind;
+  - компоненты файла [`skeletons`](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/blob/main/src/ui/skeletons.tsx) - скелетоны для таблиц панели управления хранилищем пользователя / административной панели;
+
+- Файл [auth.config.ts](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/blob/main/src/auth.config.ts) определяет конфигурацию аутентификации в пользовательском интерфейсе приложения и взаимодействие с аутентификацией на сервере;
+- Файл [middleware.ts](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/blob/main/src/middleware.ts) встраивает аутентификацию в middleware приложения, что обеспечивает контроль прав доступа к каждой странице приложения прямо на сервере до отправки страницы пользователю;
+
+Остальные файлы в корне каталога:
+
+- `.example.env.production` - пример настроек переменных окружения для сборки и работы приложения;
+- [`.dockerignore`](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/blob/main/.dockerignore) содержит перечень файлов, игнорируемых Docker при сборке;
+- [`.eslintrc.json`](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/blob/main/.eslintrc.json) - файл настройки ESLint для Nextjs;
+- [`.gitignore`](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/blob/main/.gitignore) содержит перечень файлов, игнорируемых Git;
+- [`Dockerfile`](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/blob/main/Dockerfile) содержит команды сборки контейнера приложения;
+- [`cypress.config.ts`](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/blob/main/cypress.config.ts) содержит настройки конфигурации для тестового фреймворка Cypress;
+- [`next.config.js`](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/blob/main/next.config.js) содержит настройки конфигурации для Nextjs;
+- [`package.json`](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/blob/main/package.json) содержит перечень установленных пакетов и настройки конфигурации проекта, скрипты для отладки/тестирования/сборки проекта;
+- [`pnpm-lock.yaml`](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/blob/main/pnpm-lock.yaml) содержит сервисную информацию об установленных пакетах для пакетного менеджера pnpm;
+- [`postcss.config.js`](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/blob/main/postcss.config.js) содержит настройки конфигурации обработки CSS при сборке;
+- [`tailwind.config.ts`](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/blob/main/tailwind.config.ts) содержит настройки конфигурации tailwindcss;
+- [`tsconfig.json`](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/blob/main/tsconfig.json) содержит настройки конфигурации для TypeScript;
+- [`types.d.ts`](https://github.com/Liaksej/liaksej-tiny-cloud-frontend/blob/main/types.d.ts) содержит уточнения типов для Auth.js, необходимые для обеспечения взаимодействия Auth.js с SimpleJWT.;
 
 
 ### Структура backend ([liaksej-tiny-cloud-backend](https://github.com/Liaksej/liaksej-tiny-cloud-backend))
@@ -93,6 +155,79 @@ _Важный момент:_
 - [beautifulsoup4](https://beautiful-soup-4.readthedocs.io/en/latest/) - библиотеке для парсинга HTML;
 - [docker](https://docs.docker.com);
 - [docker-compose](https://docs.docker.com/compose/);
+
+#### Корневой каталог приложения состоит из следующих файлов и директорий:
+
+**[Каталог autentication](https://github.com/Liaksej/liaksej-tiny-cloud-backend/tree/main/authentication) содержит одноименное приложение сервера Django, отвечающее за аутентификацию и администрирование:**
+
+- ветка [`migrations`](https://github.com/Liaksej/liaksej-tiny-cloud-backend/tree/main/authentication/migrations) содержит модули миграций;
+- модуль [`admin.py`](https://github.com/Liaksej/liaksej-tiny-cloud-backend/blob/main/authentication/admin.py) содержит настройки отображения элементов приложения autentication на административной панели Django;
+- модуль [`apps.py`](https://github.com/Liaksej/liaksej-tiny-cloud-backend/blob/main/authentication/admin.py) содержит информацию о приложении autentication для инициализации в `settings.py`
+- модуль `models.py` не содержит дополнительной информации.
+- модуль `serializers.py` содержит:
+  - класс `UserListSerializer`, обеспечивает сериализацию данных для эндпоинта `/api/auth/users/`;
+  - класс `CustomRegisterSerializer` обеспечивает сериализацию данных для регистрации пользователя, эндпоинт `/api/auth/register/`;
+- модуль `urls.py` описывает эндпоинты приложения autentication;
+- модуль `views.py` описывает следующие DRF-представления приложения autentication:
+    - класс-представление `LoginView` обеспечивает возможность аутентифицированного в пользовательском интерфейсе приложения администратора на панель администратора Django без необходимости проходить повторную аутентификацию;
+    - класс-представление `UsersViewSet` обеспечивает представление списка пользователей, данных отдельного пользователя, удаления пользователя для эндпоинта `/api/auth/users`;
+    - класс-представление `CustomRegisterView` обеспечивает представление регистрации пользователя для эндпоинта `/api/auth/register/`;
+
+**[Каталог cloud](https://github.com/Liaksej/liaksej-tiny-cloud-backend/tree/main/cloud) содержит одноименное приложение сервера Django, отвечающее за работу с хранилищем файлов пользователя:**
+
+- ветка `migrations` содержит модули миграций;
+- модуль `admin.py` содержит настройки отображения элементов приложения cloud на административной панели Django;
+- модуль `apps.py` содержит информацию о приложении cloud для инициализации в `settings.py`
+- модуль `models.py` содержит описание моделей приложения cloud:
+  - класс `User` описывает модель пользователя;
+  - класс `File` описывает модель файла;
+- модуль `permissions.py` содержит дополнительные настройки авторизации:
+  - класс `IsOwner` проверяет наличие прав владельца файла;
+  - класс `IsOwnerOrStaff` проверяет наличие прав владельца файла или администратора;
+- модуль `serializers.py` содержит сериалайзер:
+  - класс `FilesListSerializer`обеспечивает сериализацию данных для отображений списка файлов или файла, эндпоинт `/api/cloud/files/`;
+- модуль `services.py` содержит сервисные функции для сохранения файлана сервер и удаления файла с сервера;
+- модуль `urls.py` описывает эндпоинты приложения cloud;
+- модуль `views.py`описывает следующие DRF-представления приложения cloud:
+    - класс-представление `FileViewSet` обеспечивает представление списка файлов, данных отдельного файла, удаления и изменения файлов для эндпоинта `/api/cloud/files/`;
+    - класс-представление `FileDownloadMixin` обеспечивает корректность процесса передачи файла пользователю (владельцу) для эндпоинта `/api/cloud/download/`;
+    - класс-представление `DownloadFileView` обеспечивает процесс передачи файла владельцу (владельцу) для эндпоинта `/api/cloud/download/`;
+    - класс-представление `PublicFileDownloadView` обеспечивает процесс передачи публичного файла пользователю для эндпоинта `/api/cloud/public/`;
+
+**[Каталог djangoProject](https://github.com/Liaksej/liaksej-tiny-cloud-backend/tree/main/djangoProject) содержит основные настройки сервера фреймворка Django:**
+
+- модуль `asgi.py` - асинхронная веб-спецификация между сервером и приложением;
+- модуль `settings.py` содержит основные настройки сервера;
+- модуль `test_settings.py` содержит корректирующие настройки сервера для тестирования;
+- модуль `urls.py` содержит основные эндпоинты сервера;
+- модуль `wsgi.py` - веб-спецификация между сервером и приложением;
+
+**[Каталог nginx](https://github.com/Liaksej/liaksej-tiny-cloud-backend/tree/main/nginx) содержит настройки Nginx:**
+
+- файл `Dockerfile` содержит инструкции по сборке контейнера nginx;
+- файл `nginx.conf` содержит настройки nginx;
+
+**[Каталог tests](https://github.com/Liaksej/liaksej-tiny-cloud-backend/tree/main/tests) содержит юнит и интеграционные тесты, а также фикстуры и моки для сервера:**
+
+- каталог `tests_authentication` содержит модуль `test_auth_api.py` с интеграционными тестами приложения authentication ;
+- каталог `tests_cloud` содержит:
+  - модуль `test_cloud_api.py` с интеграционными тестами приложения cloud;
+  - модуль `test_services.py` с юнит-тестами сервисных функций приложения cloud;
+
+**Остальные файлы в корне каталога:**
+
+- `.coveragerc` содержит настройки для пакета coverage, обеспечивающего проверку покрытия тестами приложения;
+- `.dockerignore` содержит перечень файлов, игнорируемых Docker при сборке;
+- `.example.env` - пример настроек переменных окружения для сборки и работы сервера Django;
+- `.example.env.db` - пример настроек переменных окружения для сборки и работы базы данных;
+-  `.gitignore` - содержит перечень файлов, игнорируемых Git;
+- `Dockerfile` - содержит команды сборки контейнера сервера Django;
+- `docker-compose.yml` - содержит настройки для запуска контейнеров приложения;
+- `entrypoint.sh` - shell-скрипт, проверяющий запуск базы данных перед стартом контейнера с сервером Django;
+- `manage.py` - исполняемый модуль сервера Django;
+- `poetry.lock` - содержит сервисную информацию об установленных пакетах пакетного менеджера Poetry;
+- `pyproject.toml` - содержит перечень установленных пакетов и настройки конфигурации приложения для пакетного менеджера Poetry;
+- `pytest.ini` - файл настроек для pytest;
 
 ---
 ## Инструкция по установке на сервер
@@ -177,7 +312,7 @@ _Важный момент:_
    ```dockerfile
    # ...
    # Замените http://localhost:1337/ на имя вашего хоста.
-   ENV NEXT_PUBLIC_HOSTNAME "http://localhost:1337/"
+   ENV NEXT_PUBLIC_HOSTNAME "http://localhost/"
    # ...
    ```
 
