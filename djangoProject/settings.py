@@ -29,7 +29,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = bool(os.environ.get("DEBUG", default=False))
+DEBUG = os.environ.get("DEBUG", default=False) == "True"
 
 INTERNAL_IPS = [
     # ...
@@ -238,6 +238,7 @@ REST_FRAMEWORK = {
     ],
     "DEFAULT_THROTTLE_RATES": {"anon": "20/minute", "user": "900/minute"},
     "TEST_REQUEST_DEFAULT_FORMAT": "json",
+    "DEFAULT_RENDERER_CLASSES": ["rest_framework.renderers.JSONRenderer"],
 }
 
 # Logging
